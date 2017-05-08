@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/login2.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <script src="lib/jquery/jquery.min.js"></script>
+    <title></title>
+</head>
+<body>
+    <div class="top_box"></div>
+    <div class="lg_box">
+        <div class="bgc"></div>
+        <div class="login">
+            <div class="num">
+                <span class="num_login">登录</span>
+                <hr>
+            </div>
+            <div class="user">
+                <label for="num">用户名</label>
+                <input maxlength="10" id="num" name="userid" type="number">
+            </div>
+            <div class="pwd">
+                <label for="pwd">密&nbsp;&nbsp;&nbsp;码</label>
+                <input id="pwd" name="userpassword" type="text">
+            </div>
+            <div class="verify">
+                <label for="verify">验证码</label>
+                <input id="verify" maxlength="4" type="text">
+                <img id="statuscode" name="statusCode" src="../ssms/getCaptchaImage.action">
+            </div>
+            <button class="btn">登录</button>
+        </div>
+    </div>
+    <div class="bottom_box"></div>
+    <script src="js/login.js"></script>
+</body>
+</html>

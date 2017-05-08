@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="lib/jquery/jquery.js"></script>
+    <title></title>
+</head>
+<body>
+    <div class="box">
+		<div class="header">
+			<ul class="header_fun">
+				<li id="announcement"><a href="#">公告管理</a></li>
+				<li id="admin_query"><a href="#">信息管理</a></li>
+				<li id="admin_manage"><a href="#">教学管理</a></li>
+				<li><a href="#">成绩分析</a></li>
+				<li id="my_grade"><a href="#">我的成绩</a></li>
+				<li id="my_infor"><a href="#">个人信息</a></li>
+			</ul>
+		</div>
+		<div>
+			<span class="notice"></span>
+		</div>
+		<div class="left_side">
+			<ul class="admin_announcement item_">
+				<li id="release_announcement" class="item"><a href="#">发布公告</a></li>
+			</ul>
+			<ul class="left_side_infor item_">
+				<li id="watch_infor" class="item"><a href="#">查看信息</a></li>
+				<li id="modify_infor" class="item"><a href="#">修改信息</a></li>
+			</ul>
+			<ul class="left_side_manage item_">
+				<li id="record_grade" class="item"><a href="#">录入成绩</a></li>
+				<li id="query_grade" class="item"><a href="#">成绩查询</a></li>
+				<li id="modify_grade" class="item"><a href="#">修改成绩</a></li>
+			</ul>
+			<ul class="left_side_query item_">
+				<li id="infor_query" class="item"><a href="#">信息查询</a></li>
+			</ul>
+		</div>
+		<div class="content">
+			<!-- 公告管理 -->
+			<div class="announcement item_">
+				<div class="announcement_content">
+					<label class="two_label">请输入公告内容</label>
+					<input class="two_label_input" id="announcement_content" maxlength="30">
+					<button id="submit_announcement">提交</button>
+				</div>
+			</div>
+			<!-- 老师信息 -->
+			<div class="admin_infor item_">
+				<div>
+					<label class="two_label" id="admin_name_label" for="admin_name">*姓&nbsp;&nbsp;名</label>
+					<input class="two_label_input" id="admin_name" type="text" disabled>
+				</div>
+				<div>
+					<label class="two_label" id="admin_sex_label" for="admin_sex">*性&nbsp;&nbsp;别</label>
+					<input class="two_label_input" id="admin_sex" type="text" disabled>
+				</div>
+				<div>
+					<label for="admin_tel">*联系方式</label>
+					<input id="admin_tel" type="text" disabled>
+				</div>
+			</div>
+			<!-- 修改老师信息 -->
+			<div class="modify_admin_infor item_">
+				<div>
+					<label class="two_label" id="modify_admin_name_label" for="name">*姓&nbsp;&nbsp;名</label>
+					<input class="two_label_input" id="name" name="name" type="text">
+				</div>
+				<div>
+					<label class="two_label" id="modify_admin_sex_label" for="sex">*性&nbsp;&nbsp;别</label>
+					<input class="two_label_input" id="sex" name="sex" type="text">
+				</div>
+				<div>
+					<label for="phonenum">*联系方式</label>
+					<input id="phonenum" name="phonenum" type="text">
+				</div>
+				<button id="modify_admin_btn">提交</button>
+			</div>
+			<!-- 学生信息 -->
+			<div class="stu_infor item_">
+				<div>
+					<label class="two_label" for="stu_name">*姓&nbsp;&nbsp;名</label>
+					<input id="stu_name" class="two_label_input" type="text" disabled/>
+				</div>
+				<div>
+					<label class="two_label" for="stu_sex">*性&nbsp;&nbsp;别</label>
+					<select id="stu_sex" class="stu_sex two_label_input">
+						<option>男</option>
+					</select>
+				</div>
+				<div>
+					<label class="two_label" for="stu_college">*学&nbsp;&nbsp;院</label>
+					<input id="stu_college" class="two_label_input" type="text" disabled/>
+				</div>
+				<div>
+					<label class="two_label" for="stu_class">*班&nbsp;&nbsp;级</label>
+					<input id="stu_class" class="two_label_input" type="text" disabled/>
+				</div>
+				<div>
+					<label class="two_label" for="stu_address">*籍&nbsp;&nbsp;贯</label>
+					<input id="stu_address" class="two_label_input" type="text" disabled/>
+				</div>
+				<div>
+					<label for="stu_birth">*出生年月</label>
+					<input id="stu_birth" type="text" disabled/>
+				</div>
+				<div>
+					<label for="stu_tel">*联系方式</label>
+					<input id="stu_tel" type="text" disabled/>
+				</div>
+			</div>
+			<!-- 修改学生信息 -->
+			<div class="modify_stu_infor item_">
+				<div>
+					<label class="two_label" for="modify_stu_name">*姓&nbsp;&nbsp;名</label>
+					<input id="modify_stu_name" class="two_label_input" type="text"/>
+				</div>
+				<div>
+					<label class="two_label" for="modify_stu_sex">*性&nbsp;&nbsp;别</label>
+					<select id="modify_stu_sex" class="stu_sex two_label_input">
+						<option>男</option>
+						<option>女</option>
+					</select>
+				</div>
+				<div>
+					<label class="two_label" for="modify_stu_college">*学&nbsp;&nbsp;院</label>
+					<input id="modify_stu_college" class="two_label_input" type="text"/>
+				</div>
+				<div>
+					<label class="two_label" for="modify_stu_class">*班&nbsp;&nbsp;级</label>
+					<input id="modify_stu_class" class="two_label_input" type="text"/>
+				</div>
+				<div>
+					<label class="two_label" for="modify_stu_address">*籍&nbsp;&nbsp;贯</label>
+					<input id="modify_stu_address" class="two_label_input" type="text"/>
+				</div>
+				<div>
+					<label for="modify_stu_birth">*出生年月</label>
+					<input id="modify_stu_birth" type="date"/>
+				</div>
+				<div>
+					<label for="modify_stu_tel">*联系方式</label>
+					<input id="modify_stu_tel" type="text"/>
+				</div>
+				<button id="modify_stu_btn">提交</button>
+			</div>
+			<!-- 录入成绩 -->
+			<div class="teacher_record_grade item_">
+				<div class="search_class">
+					<label class="two_label">请输入班级</label>
+					<input id="search_input" class="two_label_input" type="text">
+					<button id="search_btn">确定</button>
+				</div>
+				<table class="class_grade">
+					<tbody id="stu_grade">
+
+					</tbody>
+				</table>
+			</div>
+			<!-- 成绩查询 -->
+			<div class="grade_query item_">
+				<div class="query_box">
+					<select class="choose">
+						<option>班级</option>
+						<option>学生</option>
+					</select>
+					<input id="class_stu_id" type="text">
+					<button id="submit_id">确定</button>
+				</div>
+				<table class="class_grade2">
+
+				</table>
+			</div>
+			<!-- 修改成绩 -->
+			<div class="modify_grade item_">
+				<div class="modify_grade_box">
+					<label for="input_modify_grade" class="two_label">请输入学号</label>
+					<input type="text" id="input_modify_grade">
+					<button id="search_modify">确定</button>
+				</div>
+				<table class="modify_grade_table">
+
+				</table>
+			</div>
+			<!-- 我的成绩 -->
+			<div class="my_grade item_">
+			</div>
+			<!-- 信息查询  信息修改-->
+			<div class="infor_query item_">
+				<div class="search_infor">
+					<label for="query_content" class="two_label">请输入id号</label>
+					<input id="query_content" class="two_label_input" type="text">
+					<button id="btn_query_infor">确定</button>
+				</div>
+
+			</div>
+			<!-- 成绩分析 -->
+
+		</div>
+	</div>
+	<script src="js/main.js"></script>
+</body>
+</html>

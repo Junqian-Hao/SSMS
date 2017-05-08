@@ -1,0 +1,265 @@
+.box{
+    width: 1024px;
+    margin: 0 auto;
+}
+
+.header{
+    width: 100%;
+    height: 40px;
+    position: relative;
+    border: 1px solid red;
+}
+
+.header .header_fun{
+    margin-left: 35%;
+    position: absolute;
+}
+
+.header .header_fun li{
+    float: left;
+    padding: 5px 20px;
+}
+
+.notice{
+    text-align: center;
+    background: #ccc;
+    height: 25px;
+    line-height: 25px;
+    display: block;
+}
+
+.left_side{
+    width: 15%;
+    height: 663px;
+    background: #aaa;
+    position: relative;
+    float: left;
+}
+
+.left_side_infor,
+.left_side_manage,
+.left_side_query,
+.admin_announcement{
+    position: absolute;
+    width: 100%;
+    margin-left: -18%;
+	display: none;
+}
+
+.item{
+	margin-left: -5px;
+    padding-top: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.left_side_infor li:hover{
+    color: red;
+}
+
+.content{
+    width: 85%;
+    height: 663px;
+    background: green;
+    float: right;
+}
+
+.content .admin_infor input,
+.content .modify_admin_infor input{
+    width: 40px;
+    padding: 0 40px;
+    vertical-align: middle;
+}
+
+#phonenum,
+#admin_tel{
+	width: 120px;
+	padding: 0 0;
+}
+
+.modify_admin_infor,
+.admin_infor,
+.left_side_infor,
+.stu_infor,
+.modify_stu_infor,
+.modify_grade{
+	display: none;
+}
+
+.two_label {
+    margin-left: 16px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.two_label_input{
+    margin-left: 6px;
+	vertical-align: middle;
+}
+
+.t_input{
+	margin-left: 18px;
+}
+
+
+.content .admin_infor div,
+.content .modify_admin_infor div,
+.content .stu_infor div,
+.content .modify_stu_infor div,
+.content .teacher_record_grade div,
+.content .infor_query div,
+.content .query_box,
+.content .modify_grade,
+.content .infor_input div{
+    padding: 20px 300px;
+}
+
+
+#modify_admin_btn,
+#modify_stu_btn,
+#submit_grade,
+#submit_infor,
+#modify_grade_btn{
+	display: block;
+	margin: 0 auto;
+}
+
+.stu_sex{
+	padding: 0 62px;
+	height: 21.2px;
+}
+
+.teacher_record_grade{
+	position: relative;
+	display: none;
+}
+
+#search_btn{
+	position: absolute;
+	top: 22px;
+	left: 548px;
+}
+
+#btn_query_infor{
+	position: absolute;
+	top: 21px;
+	left: 573px;
+}
+
+.search_class,
+.search_infor{
+	margin-left: -30px;
+}
+
+.search_infor{
+	position: relative;
+	margin-left: -30px;
+}
+
+.class_grade,
+.class_grade2,
+.modify_grade_table,
+.my_table{
+	background: white;
+	width: 600px;
+	text-align: center;
+	margin: 0 auto;
+	border-collapse:collapse;
+	border:none;
+	visibility: hidden;
+}
+
+.my_table{
+	margin-top: 20px;
+}
+
+.modify_grade_table{
+	margin-left: -157px;
+	margin-top: 20px;
+}
+
+
+.class_grade td,
+.class_grade2 td,
+.modify_grade_table td{
+	border: 1px solid #000;
+}
+
+.grade_title{
+	text-align: center;
+	display: none;
+}
+
+.grade_table_input,
+.grade_table_input2{
+	border: none;
+	outline: none;
+	width: 20px;
+}
+
+.infor_query{
+	display: none;
+}
+
+.choose{
+	height: 21px;
+	margin-top: 2px;
+}
+
+.query_box{
+	position: relative;
+}
+
+#class_stu_id{
+	padding-top: 3px;
+}
+
+.grade_query{
+	display: none;
+}
+
+.modify_grade_box{
+	position: relative;
+	margin-left: -30px;
+}
+
+#input_modify_grade{
+	width: 140px;
+}
+
+#search_modify{
+	position: absolute;
+	top: 1px;
+	left: 250px;
+}
+
+.content .announcement span{
+	vertical-align: top;
+}
+
+.announcement{
+	display: none;
+}
+
+.announcement_content{
+	position: relative;
+	text-align: center;
+	margin-top: 40px;
+}
+
+#announcement_content{
+	width: 200px;
+}
+
+#submit_announcement{
+	margin-left: 5px;
+}
+
+
+
+
+
+
+
+
+

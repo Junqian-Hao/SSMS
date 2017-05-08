@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.nuc.ssms.mapper.StudentCustomMapper">
+    <resultMap id="selectAllResultMap" type="cn.edu.nuc.ssms.entity.custom.StudentCustom">
+        <id column="userid" property="userid" jdbcType="INTEGER" />
+        <result column="userpassword" property="userpassword" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="VARCHAR" />
+        <result column="phonenumber" property="phonenumber" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="INTEGER" />
+        <result column="classname" property="classname" jdbcType="VARCHAR" />
+        <result column="college" property="college" jdbcType="VARCHAR" />
+        <result column="birthday" property="birthday" jdbcType="DATE" />
+        <result column="nativeplace" property="nativeplace" jdbcType="VARCHAR" />
+        <collection property="gradeVos" ofType="cn.edu.nuc.ssms.entity.vo.GradeVo">
+            <result column="grade" property="grade"/>
+            <result column="subjectname" property="subject"/>
+            <result column="gradeid" property="gradeid"/>
+            <result column="subjectid" property="subjectid"/>
+        </collection>
+    </resultMap>
+    <sql id="select_StudentCustom">
+         SELECT student.*,grade.`grade`,subject.`subjectname`,grade.`gradeid`,subject.`subjectid`
+FROM student,grade,SUBJECT
+WHERE student.`userid` = grade.`userid` AND subject.`subjectid` = grade.`subjectid`
+    </sql>
+    <select id="selectAllStudent" resultMap="selectAllResultMap">
+     <include refid="select_StudentCustom"/>
+    </select>
+
+    <select id="selectStudentCustomByClass" parameterType="cn.edu.nuc.ssms.entity.custom.StudentCustom" resultMap="selectAllResultMap">
+        <include refid="select_StudentCustom"/>
+        <if test="classname != null">
+            AND student.`classname` = #{classname}
+        </if>
+    </select>
+
+    <select id="selectStudentCustomByCollage" parameterType="cn.edu.nuc.ssms.entity.custom.StudentCustom" resultMap="selectAllResultMap">
+        <include refid="select_StudentCustom"/>
+        <if test="college != null">
+            AND student.`college` = #{college}
+        </if>
+    </select>
+
+    <select id="selectAllClass" resultMap="selectAllResultMap">
+        SELECT DISTINCT student.`classname`
+FROM student
+    </select>
+
+    <select id="selectStudentCustomByStudenId" parameterType="int" resultMap="selectAllResultMap">
+        <include refid="select_StudentCustom"/>
+            AND student.`userid` = #{VALUE }
+    </select>
+    <select id="selectGradBySubjectNameandClassName" parameterType="cn.edu.nuc.ssms.entity.vo.AnalyseVo" resultType="float">
+        SELECT grade.`grade`
+        FROM student,grade,SUBJECT
+        WHERE student.`userid` = grade.`userid` AND subject.`subjectid` = grade.`subjectid`
+        AND subject.`subjectname` = #{subjectName} AND student.`classname` = #{className}
+    </select>
+
+    <select id="selectGradBySubjectNameandCollage" parameterType="cn.edu.nuc.ssms.entity.vo.AnalyseVo" resultType="float">
+        SELECT grade.`grade`
+        FROM student,grade,SUBJECT
+        WHERE student.`userid` = grade.`userid` AND subject.`subjectid` = grade.`subjectid`
+        AND subject.`subjectname` = #{subjectName} AND student.`college` = #{college}
+    </select>
+
+    <select id="selectSubjectNameByCollage" parameterType="cn.edu.nuc.ssms.entity.vo.AnalyseVo" resultType="String">
+       SELECT DISTINCT subject.`subjectname`
+FROM student,grade,SUBJECT
+WHERE student.`userid` = grade.`userid` AND subject.`subjectid` = grade.`subjectid`AND student.`college`= #{college}
+    </select>
+</mapper>

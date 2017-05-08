@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/login.css"/>
+    <script src="lib/jquery/jquery.min.js"></script>
+</head>
+<body>
+    <div class="bcg">
+        <div class="login">
+            <div class="num">
+                <label for="num">用户名</label>
+                <input maxlength="10" id="num" name="userid" type="number">
+				<span class="error">用户名或密码错误！</span>
+            </div>
+            <div class="pwd">
+                <label for="pwd">密&nbsp;&nbsp;&nbsp;码</label>
+                <input id="pwd" name="userpassword" type="text">
+            </div>
+            <div class="verify">
+                <label for="verify">验证码</label>
+                <input id="verify" maxlength="4" type="text">
+				<span id="icon"></span>
+				<img id="statuscode" name="statusCode" src="../ssms/getCaptchaImage.action">
+            </div>
+			<img id="btn-img" src="img/login.png">
+        </div>
+    </div>
+    <script src="js/login.js"></script>
+</body>
+</html>

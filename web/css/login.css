@@ -1,0 +1,117 @@
+html,
+body {
+    background: rgb(184,235,249);
+}
+
+input{
+	width: 30%;
+}
+
+.bcg{
+    background: url(../img/bgc.png) no-repeat;
+    background-position: center center;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    z-index: 2;
+}
+
+.login{
+    position: absolute;
+    top: 43.5%;
+    left: 28%;
+    margin: 0 auto;
+    width: 44vw;
+    height: 31.5vh;
+    z-index: 3;
+}
+
+#pwd{
+    margin-left: 2px;
+}
+
+.num{
+    margin-top: 8%;
+    margin-left: 15%;
+}
+
+.pwd,
+.verify{
+    margin-top: 3%;
+    margin-left: 15%;
+}
+
+.verify{
+	position: relative;
+	width: 30%;
+    z-index: 3;
+}
+
+.error{
+	color: red;
+	display: none;
+}
+
+#icon{
+	background-size: 200px 200px;
+	background: url(../img/sprites.png);
+	background-position: -90px -9.5px;
+	width: 20px;
+	height: 20px;
+	display: none;
+	position: absolute;
+	left: 120px;
+	top: 3px;
+	border-radius: 50%;
+}
+
+#statuscode{
+	width: 70px;
+	height: 22px;
+	position: absolute;
+	bottom: 0;
+	right: -26px;
+}
+
+#statuscode:hover{
+	cursor: pointer;
+}
+
+#btn-img{
+    float: right;
+    margin-right: 25%;
+    margin-top: -10%;
+}
+
+
+#btn-img:hover{
+    cursor: pointer;
+}
+
+@media (max-width: 960px) {
+	#btn-img{
+		width: 70px;
+		margin-top: -15%;
+	}
+}
+
+@media (max-width: 800px) {
+	#btn-img{
+		width: 50px;
+		margin-top: 0;
+		margin-right: 50%;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+

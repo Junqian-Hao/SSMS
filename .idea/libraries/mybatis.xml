@@ -1,0 +1,26 @@
+<component name="libraryTable">
+  <library name="mybatis">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/ant-1.9.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ant-launcher-1.9.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm-5.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/aspectjrt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/aspectjweaver.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cglib-3.2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.7.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.7.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.7.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javassist-3.21.0-GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j-1.2.17.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j-api-2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j-core-2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mybatis-3.4.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mybatis-spring-1.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ognl-3.1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.25.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-log4j12-1.7.25.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
