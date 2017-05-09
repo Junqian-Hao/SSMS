@@ -17,12 +17,14 @@
             <result column="subjectname" property="subject"/>
             <result column="gradeid" property="gradeid"/>
             <result column="subjectid" property="subjectid"/>
+            <result column="term" property="term"/>
         </collection>
     </resultMap>
     <sql id="select_StudentCustom">
-         SELECT student.*,grade.`grade`,subject.`subjectname`,grade.`gradeid`,subject.`subjectid`
+         SELECT student.*,grade.`grade`,subject.`subjectname`,grade.`gradeid`,subject.`subjectid`,grade.`term`
 FROM student,grade,SUBJECT
-WHERE student.`userid` = grade.`userid` AND subject.`subjectid` = grade.`subjectid`
+WHERE student.`userid` = grade.`userid`
+AND subject.`subjectid` = grade.`subjectid`
     </sql>
     <select id="selectAllStudent" resultMap="selectAllResultMap">
      <include refid="select_StudentCustom"/>

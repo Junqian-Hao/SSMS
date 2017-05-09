@@ -88,6 +88,11 @@ public class TeacherController {
         return "{\"code\": \"1\"}";
     }
 
+    /**
+     * 查询教师所教授的课程
+     * @param user
+     * @return
+     */
     @RequestMapping("/selectTeachingClass")
     @ResponseBody
     public List<Subject> selectTeachingClass(@RequestBody User user) {
@@ -96,6 +101,11 @@ public class TeacherController {
         return subjects;
     }
 
+    /**
+     * 录入成绩
+     * @param list
+     * @return
+     */
     @RequestMapping("/inputGrade")
     @ResponseBody
     public String inputGrade(@RequestBody List<Grade> list) {

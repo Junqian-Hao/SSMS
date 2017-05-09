@@ -27,6 +27,19 @@ public class GradeVo implements Serializable {
      */
     int gradeid;
 
+    /**
+     * 学期
+     */
+    int term;
+
+    public int getTerm() {
+        return term;
+    }
+
+    public void setTerm(int term) {
+        this.term = term;
+    }
+
     public int getGradeid() {
         return gradeid;
     }

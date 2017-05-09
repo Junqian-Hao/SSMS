@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @Author 王启良
  * @Date 2017/4/27 12:13
- * @Description :
+ * @Description :管理员业务逻辑的实现
  */
 public class AdministratorServiceImpl implements AdministratorService {
 

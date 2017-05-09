@@ -48,10 +48,18 @@
         </property>
     </bean>
 
-    <!--<mvc:interceptors>-->
+    <mvc:interceptors>
         <!--<mvc:interceptor>-->
             <!--<mvc:mapping path="/**"/>-->
            <!--<bean class="cn.edu.nuc.ssms.intercepts.LoginInterceptor"/>-->
         <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
+        <mvc:interceptor>
+            <mvc:mapping path="/Teacher/*"/>
+            <bean class="cn.edu.nuc.ssms.intercepts.TeacherInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/Administrator/*"/>
+            <bean class="cn.edu.nuc.ssms.intercepts.AdministratorInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

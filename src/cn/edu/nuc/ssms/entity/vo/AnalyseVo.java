@@ -21,6 +21,11 @@ public class AnalyseVo {
      */
     String subjectName;
 
+    /**
+     * 学期
+     */
+    int term;
+
     public String getClassName() {
         return className;
     }
@@ -43,5 +48,13 @@ public class AnalyseVo {
 
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
+    }
+
+    public int getTerm() {
+        return term;
+    }
+
+    public void setTerm(int term) {
+        this.term = term;
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @Author 王启良
  * @Date 2017/4/29 0:23
- * @Description :
+ * @Description :教师角色业务逻辑单元测试
  */
 public class TeacherServiceTest {
     ApplicationContext applicationContext;

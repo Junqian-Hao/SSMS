@@ -41,7 +41,7 @@ public class CaptchaController {
     public String getCaptcha(Model model,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         model.addAttribute("timestamp", System.currentTimeMillis());
 //        request.setAttribute("timestamp",System.currentTimeMillis());
-        request.getRequestDispatcher("login.html").forward(request,response);
+        request.getRequestDispatcher("login2.html").forward(request,response);
         return null;
     }
 

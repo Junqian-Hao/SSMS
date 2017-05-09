@@ -65,6 +65,12 @@ public class LoginController {
         return resultMassage;
     }
 
+    /**
+     * 退出登录
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("/exit")
     @ResponseBody
     public String exit(HttpServletRequest request,HttpServletResponse response) {
@@ -80,6 +86,11 @@ public class LoginController {
         return "{\"code\": \"0\"}";
     }
 
+    /**
+     * 查询当前登录用户信息
+     * @param request
+     * @return
+     */
     @RequestMapping("/selectNowUser")
     @ResponseBody
     public User selectNowUser(HttpServletRequest request) {

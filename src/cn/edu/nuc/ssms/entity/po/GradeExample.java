@@ -294,53 +294,113 @@ public class GradeExample {
             return (Criteria) this;
         }
 
-        public Criteria andGradeEqualTo(Float value) {
+        public Criteria andGradeEqualTo(Double value) {
             addCriterion("grade =", value, "grade");
             return (Criteria) this;
         }
 
-        public Criteria andGradeNotEqualTo(Float value) {
+        public Criteria andGradeNotEqualTo(Double value) {
             addCriterion("grade <>", value, "grade");
             return (Criteria) this;
         }
 
-        public Criteria andGradeGreaterThan(Float value) {
+        public Criteria andGradeGreaterThan(Double value) {
             addCriterion("grade >", value, "grade");
             return (Criteria) this;
         }
 
-        public Criteria andGradeGreaterThanOrEqualTo(Float value) {
+        public Criteria andGradeGreaterThanOrEqualTo(Double value) {
             addCriterion("grade >=", value, "grade");
             return (Criteria) this;
         }
 
-        public Criteria andGradeLessThan(Float value) {
+        public Criteria andGradeLessThan(Double value) {
             addCriterion("grade <", value, "grade");
             return (Criteria) this;
         }
 
-        public Criteria andGradeLessThanOrEqualTo(Float value) {
+        public Criteria andGradeLessThanOrEqualTo(Double value) {
             addCriterion("grade <=", value, "grade");
             return (Criteria) this;
         }
 
-        public Criteria andGradeIn(List<Float> values) {
+        public Criteria andGradeIn(List<Double> values) {
             addCriterion("grade in", values, "grade");
             return (Criteria) this;
         }
 
-        public Criteria andGradeNotIn(List<Float> values) {
+        public Criteria andGradeNotIn(List<Double> values) {
             addCriterion("grade not in", values, "grade");
             return (Criteria) this;
         }
 
-        public Criteria andGradeBetween(Float value1, Float value2) {
+        public Criteria andGradeBetween(Double value1, Double value2) {
             addCriterion("grade between", value1, value2, "grade");
             return (Criteria) this;
         }
 
-        public Criteria andGradeNotBetween(Float value1, Float value2) {
+        public Criteria andGradeNotBetween(Double value1, Double value2) {
             addCriterion("grade not between", value1, value2, "grade");
+            return (Criteria) this;
+        }
+
+        public Criteria andTermIsNull() {
+            addCriterion("term is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTermIsNotNull() {
+            addCriterion("term is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTermEqualTo(Integer value) {
+            addCriterion("term =", value, "term");
+            return (Criteria) this;
+        }
+
+        public Criteria andTermNotEqualTo(Integer value) {
+            addCriterion("term <>", value, "term");
+            return (Criteria) this;
+        }
+
+        public Criteria andTermGreaterThan(Integer value) {
+            addCriterion("term >", value, "term");
+            return (Criteria) this;
+        }
+
+        public Criteria andTermGreaterThanOrEqualTo(Integer value) {
+            addCriterion("term >=", value, "term");
+            return (Criteria) this;
+        }
+
+        public Criteria andTermLessThan(Integer value) {
+            addCriterion("term <", value, "term");
+            return (Criteria) this;
+        }
+
+        public Criteria andTermLessThanOrEqualTo(Integer value) {
+            addCriterion("term <=", value, "term");
+            return (Criteria) this;
+        }
+
+        public Criteria andTermIn(List<Integer> values) {
+            addCriterion("term in", values, "term");
+            return (Criteria) this;
+        }
+
+        public Criteria andTermNotIn(List<Integer> values) {
+            addCriterion("term not in", values, "term");
+            return (Criteria) this;
+        }
+
+        public Criteria andTermBetween(Integer value1, Integer value2) {
+            addCriterion("term between", value1, value2, "term");
+            return (Criteria) this;
+        }
+
+        public Criteria andTermNotBetween(Integer value1, Integer value2) {
+            addCriterion("term not between", value1, value2, "term");
             return (Criteria) this;
         }
     }

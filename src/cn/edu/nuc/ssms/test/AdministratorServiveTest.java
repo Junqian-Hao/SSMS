@@ -13,8 +13,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by 16359 on 2017/4/22.
- * MyBatis测试
+ * @Author 王启良
+ * @Date 2017/4/29 0:23
+ * @Description :管理员业务逻辑单元测试
  */
 public class AdministratorServiveTest {
     ApplicationContext applicationContext;

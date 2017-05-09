@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * @Author 王启良
  * @Date 2017/4/29 0:17
- * @Description :
+ * @Description :教师角色业务逻辑实现
  */
 public class TeacherServiceImpl implements TeacherService {
     private static final Log log = LogFactory.getLog(TeacherServiceImpl.class);
@@ -159,7 +159,7 @@ public class TeacherServiceImpl implements TeacherService {
                         log.debug("学号为:" + studenId);
                     }
                     if (p == 2) {
-                        float subjectGrade = new Float(split[2]);
+                        Double subjectGrade = new Double(split[2]);
                         log.debug("成绩为:" + subjectGrade);
                         grade.setGrade(subjectGrade);
                     }

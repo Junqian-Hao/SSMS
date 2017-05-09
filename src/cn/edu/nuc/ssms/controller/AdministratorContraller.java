@@ -166,6 +166,11 @@ public class AdministratorContraller {
         return "{\"code\": \"1\"}";
     }
 
+    /**
+     * 添加科目
+     * @param subject
+     * @return
+     */
     @RequestMapping("/insertSubject")
     @ResponseBody
     public String insertSubject(@RequestBody Subject subject) {
@@ -176,6 +181,11 @@ public class AdministratorContraller {
         return "{\"code\": \"1\"}";
     }
 
+    /**
+     * 删除科目
+     * @param subject
+     * @return
+     */
     @RequestMapping("/deleatSubject")
     @ResponseBody
     public String deleatSubject(@RequestBody Subject subject) {
@@ -186,6 +196,11 @@ public class AdministratorContraller {
         return "{\"code\": \"1\"}";
     }
 
+    /**
+     * 修改科目
+     * @param subject
+     * @return
+     */
     @RequestMapping("/updateSubject")
     @ResponseBody
     public String updateSubject(@RequestBody Subject subject) {
@@ -196,6 +211,10 @@ public class AdministratorContraller {
         return "{\"code\": \"1\"}";
     }
 
+    /**
+     * 查询所有科目
+     * @return
+     */
     @RequestMapping("/selectAllSubject")
     @ResponseBody
     public List<Subject> selectAllSubject() {
@@ -204,6 +223,10 @@ public class AdministratorContraller {
         return subjects;
     }
 
+    /**
+     * 查询所有班级
+     * @return
+     */
     @RequestMapping("/selectAllClass")
     @ResponseBody
     public List<StudentCustom> selectAllClass() {
@@ -222,6 +245,11 @@ public class AdministratorContraller {
         return "{\"code\": \"1\"}";
     }
 
+    /**
+     * 删除所修课程
+     * @param grades
+     * @return
+     */
     @RequestMapping("/deleatGrads")
     @ResponseBody
     public String deleatGrads(@RequestBody List<Grade> grades) {

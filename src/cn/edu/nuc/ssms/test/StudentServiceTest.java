@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * @Author 王启良
  * @Date 2017/4/28 21:02
- * @Description : 学生角色业务逻辑测试
+ * @Description : 学生角色业务逻辑单元测试
  */
 public class StudentServiceTest {
     ApplicationContext applicationContext;

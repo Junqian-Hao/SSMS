@@ -7,7 +7,9 @@ public class Grade {
 
     private Integer userid;
 
-    private Float grade;
+    private Double grade;
+
+    private Integer term;
 
     public Integer getGradeid() {
         return gradeid;
@@ -33,11 +35,19 @@ public class Grade {
         this.userid = userid;
     }
 
-    public Float getGrade() {
+    public Double getGrade() {
         return grade;
     }
 
-    public void setGrade(Float grade) {
+    public void setGrade(Double grade) {
         this.grade = grade;
+    }
+
+    public Integer getTerm() {
+        return term;
+    }
+
+    public void setTerm(Integer term) {
+        this.term = term;
     }
 }

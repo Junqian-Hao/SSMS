@@ -32,6 +32,10 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
+    /**
+     * 查询所有公告
+     * @return
+     */
     @RequestMapping("/selectAllNotice")
     @ResponseBody
     public List<Notice> selectAllNotice() {
@@ -40,6 +44,11 @@ public class StudentController {
         return notices;
     }
 
+    /**
+     * 分页查询公告
+     * @param map
+     * @return
+     */
     @RequestMapping("/selectNotice")
     @ResponseBody
     public List<Notice> selectNotice(@RequestBody Map<String,Integer> map) {
@@ -52,6 +61,11 @@ public class StudentController {
         return notices;
     }
 
+    /**
+     * 查询当前登陆的学生
+     * @param request
+     * @return
+     */
     @RequestMapping("/selectStudent")
     @ResponseBody
     public Map selectStudent(HttpServletRequest request) {
@@ -66,6 +80,12 @@ public class StudentController {
         }
         return resultMap;
     }
+
+    /**
+     * 修改学生信息
+     * @param student
+     * @return
+     */
     @RequestMapping("/updateStudent")
     @ResponseBody
     public String updateStudent(@RequestBody Student student) {
@@ -76,6 +96,11 @@ public class StudentController {
         return "{\"code\": \"1\"}";
     }
 
+    /**
+     * 查询全班成绩
+     * @param studentCustom
+     * @return
+     */
     @RequestMapping("/selectStudentCustomByClass")
     @ResponseBody
     public List<StudentCustom> selectStudentCustomByClass(@RequestBody StudentCustom studentCustom) {
@@ -84,6 +109,11 @@ public class StudentController {
         return studentCustoms;
     }
 
+    /**
+     * 查询全班学生信息
+     * @param student
+     * @return
+     */
     @RequestMapping("/testSelectStudentByClass")
     @ResponseBody
     public List<Student> testSelectStudentByClass(@RequestBody Student student) {
@@ -92,6 +122,11 @@ public class StudentController {
         return students;
     }
 
+    /**
+     * 查询教师所授课程
+     * @param subject
+     * @return
+     */
     @RequestMapping("/selectSubjectByTeacher")
     @ResponseBody
     public List<Subject> selectSubjectByTeacher(@RequestBody Subject subject) {
@@ -100,6 +135,11 @@ public class StudentController {
         return subjects;
     }
 
+    /**
+     * 班级成绩分析
+     * @param analyseVo
+     * @return
+     */
     @RequestMapping("/analyseByClass")
     @ResponseBody
     public Map<String, Map<String, Float>> analyseByClass(@RequestBody AnalyseVo analyseVo) {
@@ -110,6 +150,11 @@ public class StudentController {
         return stringMapMap;
     }
 
+    /**
+     * 学院成绩分析
+     * @param analyseVo
+     * @return
+     */
     @RequestMapping("/analyseByCollage")
     @ResponseBody
     public Map<String, Map<String, Float>> analyseByCollage(@RequestBody AnalyseVo analyseVo) {
