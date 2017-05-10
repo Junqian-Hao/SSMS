@@ -12,6 +12,7 @@ import cn.edu.nuc.ssms.service.StudentService;
 import cn.edu.nuc.ssms.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,8 +115,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Map<String, Map<String,Float>> analyseByClass(AnalyseVo analyseVo) {
-        HashMap<String, Map<String,Float>> resultMap = new HashMap<>();
+    public List<Map<String,Object>> analyseByClass(AnalyseVo analyseVo) {
+        List<Map<String, Object>> resultList = new ArrayList<>();
 
         StudentCustom studentCustom = new StudentCustom();
         studentCustom.setClassname(analyseVo.getClassName());
@@ -158,7 +159,7 @@ public class StudentServiceImpl implements StudentService {
             passPerentge = (float) passAmount / person;
             dispassPerentge = (float) dispassAmount / person;
 
-            HashMap<String, Float> subjectGrad = new HashMap<>();
+            HashMap<String, Object> subjectGrad = new HashMap<>();
             subjectGrad.put("perfectAmount", (float) perfectAmount);
             subjectGrad.put("perfectPerentge",perfectPerentge);
             subjectGrad.put("goodAmount", (float) goodAmount);
@@ -167,17 +168,18 @@ public class StudentServiceImpl implements StudentService {
             subjectGrad.put("passPerentge",passPerentge);
             subjectGrad.put("dispassAmount", (float) dispassAmount);
             subjectGrad.put("dispassPerentge",dispassPerentge);
+            subjectGrad.put("subject", subject);
 
-            resultMap.put(subject, subjectGrad);
+            resultList.add( subjectGrad);
 
         }
-        return resultMap;
+        return resultList;
     }
 
     @Override
-    public Map<String, Map<String,Float>> analyseByCollage(AnalyseVo analyseVo) {
+    public List<Map<String,Object>> analyseByCollage(AnalyseVo analyseVo) {
 
-        HashMap<String, Map<String,Float>> resultMap = new HashMap<>();
+        List<Map<String, Object>> resultList = new ArrayList<>();
 
         List<String> subjects = studentCustomMapper.selectSubjectNameByCollage(analyseVo);
 
@@ -217,7 +219,7 @@ public class StudentServiceImpl implements StudentService {
             passPerentge = (float) passAmount / person;
             dispassPerentge = (float) dispassAmount / person;
 
-            HashMap<String, Float> subjectGrad = new HashMap<>();
+            HashMap<String, Object> subjectGrad = new HashMap<>();
             subjectGrad.put("perfectAmount", (float) perfectAmount);
             subjectGrad.put("perfectPerentge",perfectPerentge);
             subjectGrad.put("goodAmount", (float) goodAmount);
@@ -227,10 +229,13 @@ public class StudentServiceImpl implements StudentService {
             subjectGrad.put("dispassAmount", (float) dispassAmount);
             subjectGrad.put("dispassPerentge",dispassPerentge);
 
-            resultMap.put(subject, subjectGrad);
+            subjectGrad.put("subject", subject);
+
+            resultList.add(subjectGrad);
 
         }
-        return resultMap;
+
+        return resultList;
     }
 
 

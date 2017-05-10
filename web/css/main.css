@@ -39,7 +39,8 @@
 .left_side_infor,
 .left_side_manage,
 .left_side_query,
-.admin_announcement{
+.admin_announcement,
+.left_grade_analysis{
     position: absolute;
     width: 100%;
     margin-left: -18%;
@@ -82,7 +83,10 @@
 .left_side_infor,
 .stu_infor,
 .modify_stu_infor,
-.modify_grade{
+.modify_grade,
+.classgrade_analysis,
+.collegegrade_analysis,
+.left_grade_analysis{
 	display: none;
 }
 
@@ -255,9 +259,32 @@
 	margin-left: 5px;
 }
 
+#class_grade_picture,
+#college_grade_picture{
+	display: block;
+	text-align: center;
+	margin-top: 20px;
+}
 
+.picture{
+	width: 350px;
+	height: 270px;
+}
 
+.select{
+	float: left;
+	margin-left: 20px;
+}
 
+#class_column,
+#college_grade_column{
+	float: left;
+}
+
+#class_pie,
+#college_grade_pie{
+	float: right;
+}
 
 
 

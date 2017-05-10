@@ -142,10 +142,10 @@ public class StudentController {
      */
     @RequestMapping("/analyseByClass")
     @ResponseBody
-    public Map<String, Map<String, Float>> analyseByClass(@RequestBody AnalyseVo analyseVo) {
+    public List<Map<String,Object>> analyseByClass(@RequestBody AnalyseVo analyseVo) {
         log.debug("班级成绩分析");
 
-        Map<String, Map<String, Float>> stringMapMap = studentService.analyseByClass(analyseVo);
+        List<Map<String,Object>> stringMapMap = studentService.analyseByClass(analyseVo);
 
         return stringMapMap;
     }
@@ -157,10 +157,10 @@ public class StudentController {
      */
     @RequestMapping("/analyseByCollage")
     @ResponseBody
-    public Map<String, Map<String, Float>> analyseByCollage(@RequestBody AnalyseVo analyseVo) {
+    public List<Map<String,Object>> analyseByCollage(@RequestBody AnalyseVo analyseVo) {
         log.debug("学院成绩分析");
 
-        Map<String, Map<String, Float>> stringMapMap = studentService.analyseByCollage(analyseVo);
+        List<Map<String,Object>> stringMapMap = studentService.analyseByCollage(analyseVo);
 
         return stringMapMap;
     }

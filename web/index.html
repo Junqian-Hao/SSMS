@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/base.css">
     <script src="lib/jquery/jquery.js"></script>
+	<script src="js/echarts.min.js"></script>
     <title></title>
 </head>
 <body>
@@ -14,7 +15,7 @@
 				<li id="announcement"><a href="#">公告管理</a></li>
 				<li id="admin_query"><a href="#">信息管理</a></li>
 				<li id="admin_manage"><a href="#">教学管理</a></li>
-				<li><a href="#">成绩分析</a></li>
+				<li id="grade_analysis"><a href="#">成绩分析</a></li>
 				<li id="my_grade"><a href="#">我的成绩</a></li>
 				<li id="my_infor"><a href="#">个人信息</a></li>
 			</ul>
@@ -34,6 +35,10 @@
 				<li id="record_grade" class="item"><a href="#">录入成绩</a></li>
 				<li id="query_grade" class="item"><a href="#">成绩查询</a></li>
 				<li id="modify_grade" class="item"><a href="#">修改成绩</a></li>
+			</ul>
+			<ul class="left_grade_analysis item_">
+				<li id="my_class_grade" class="item"><a href="#">班级成绩</a></li>
+				<li id="my_college_grade" class="item"><a href="#">学院成绩</a></li>
 			</ul>
 			<ul class="left_side_query item_">
 				<li id="infor_query" class="item"><a href="#">信息查询</a></li>
@@ -197,8 +202,40 @@
 				</div>
 
 			</div>
-			<!-- 成绩分析 -->
+			<!-- 班级成绩分析 -->
+			<div class="classgrade_analysis item_">
+				<div id="class_grade_picture">
+					<label class="two_label" for="class_analysis_input">请输入班级</label>
+					<input class="two_label_input" type="text" id="class_analysis_input">
+					<button id="class_analysis_btn">确定</button>
+				</div>
+				<div class="select">
 
+				</div>
+				<div id="class_column" class="picture">
+
+				</div>
+				<div id="class_pie" class="picture">
+
+				</div>
+			</div>
+			<!-- 学院成绩分析 -->
+			<div class="collegegrade_analysis item_">
+				<div id="college_grade_picture">
+					<label class="two_label" for="class_analysis_input">请输入学院</label>
+					<input class="two_label_input" type="text" id="college_analysis_input">
+					<button id="college_analysis_btn">确定</button>
+				</div>
+				<div class="select2">
+
+				</div>
+				<div id="college_grade_column" class="picture">
+
+				</div>
+				<div id="college_grade_pie" class="picture">
+
+				</div>
+			</div>
 		</div>
 	</div>
 	<script src="js/main.js"></script>

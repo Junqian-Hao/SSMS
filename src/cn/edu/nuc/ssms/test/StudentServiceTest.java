@@ -60,7 +60,7 @@ public class StudentServiceTest {
         AnalyseVo analyseVo = new AnalyseVo();
         analyseVo.setClassName("1234");
 
-        Map<String, Map<String, Float>> stringMapMap = studentService.analyseByClass(analyseVo);
+        List<Map<String,Object>> stringMapMap = studentService.analyseByClass(analyseVo);
         System.out.println(stringMapMap);
     }
 
@@ -68,7 +68,7 @@ public class StudentServiceTest {
     public void testAnalyseByCollage() {
         AnalyseVo analyseVo = new AnalyseVo();
         analyseVo.setCollege("软件学院");
-        Map<String, Map<String, Float>> stringMapMap = studentService.analyseByCollage(analyseVo);
+        List<Map<String,Object>> stringMapMap = studentService.analyseByCollage(analyseVo);
         System.out.println(stringMapMap);
     }
 }

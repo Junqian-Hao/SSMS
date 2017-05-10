@@ -71,13 +71,13 @@ public interface StudentService {
      * 获取班级的分析数据
      * @return
      */
-    Map<String, Map<String,Float>> analyseByClass(AnalyseVo analyseVo);
+    List<Map<String,Object>> analyseByClass(AnalyseVo analyseVo);
 
     /**
      * 获取学院的分析数据
      * @return
      */
-    Map<String, Map<String,Float>> analyseByCollage(AnalyseVo analyseVo);
+    List<Map<String,Object>> analyseByCollage(AnalyseVo analyseVo);
 
 
 }

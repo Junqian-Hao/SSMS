@@ -636,12 +636,357 @@ $(function(){
 		});
 	});
 
+	//班级成绩分析
+	$("#grade_analysis").on("click",function(){
+		$(".item_").css("display","none");
+		$(".left_grade_analysis").css("display","block");
+	});
+	$("#my_class_grade").on("click",function(){
+		$(".item_").css("display","none");
+		$(".left_grade_analysis").css("display","block");
+		$(".classgrade_analysis").css("display","block");
+	});
+	$("#class_analysis_btn").on("click",function(){
+		var classname = $("#class_analysis_input").val();
+		var json = {
+			"className":classname
+		}
+		$.ajax({
+			url: "/ssms/Student/analyseByClass.action",
+			type: "POST",
+			dataType: "json",
+			contentType: "application/json",
+			data: JSON.stringify(json),
+			success: function(data){
+				var select = $("<select id='choose_subject'></select>");
+				var num = data.length;
+				var firstpic = data[0].subject;
+				for(var i = 0;i<num;i++){
+					var option = $("<option></option>").html(data[i].subject);
+					select.append(option);
+				}
+				$(".select").append(select);
+				var myCharts = echarts.init(document.getElementById("class_column"));
+				var myCharts2 = echarts.init(document.getElementById("class_pie"));
+				var option = {
+					title: {
+						text: '班级成绩'
+					},
+					tooltip: {},
+					legend: {
+						data:['比列']
+					},
+					xAxis: {
+						data: ["0~60","60~80","80~90","90~100"]
+					},
+					yAxis: {},
+					series: [{
+						name: '比列',
+						type: 'bar',
+						data: [data[0].dispassPerentge,data[0].passPerentge,data[0].goodPerentge,data[0].perfectPerentge]
+					}]
+				};
+				myCharts.setOption(option);
+
+				myCharts2.setOption({
+					title: {
+						text: '总体成绩'
+					},
+					tooltip: {
+						trigger: 'item',
+						formatter: "{a} <br/>{b}: {c} ({d}%)"
+					},
+					series : [
+						{
+							name: '成绩饼状图',
+							type: 'pie',
+							radius: '55%',
+							data:[
+								{value:data[0].dispassAmount, name:'不及格'+data[0].dispassPerentge},
+								{value:data[0].passAmount, name:'及格'+data[0].passPerentge},
+								{value:data[0].goodAmount, name:'良好'+data[0].goodPerentge},
+								{value:data[0].perfectAmount, name:'优秀'+data[0].perfectPerentge}
+							]
+						},
+					],
+					itemStyle: {
+						normal: {
+							// 阴影的大小
+							shadowBlur: 200,
+							// 阴影水平方向上的偏移
+							shadowOffsetX: 0,
+							// 阴影垂直方向上的偏移
+							shadowOffsetY: 0,
+							// 阴影颜色
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					},
+					backgroundColor: '#2c343c',
+					labelLine: {
+						normal: {
+							lineStyle: {
+								color: 'rgba(255, 255, 255, 0.3)'
+							}
+						}
+					}
+				})
+			$("#choose_subject").on("change", function () {
+					var choose = $("#choose_subject").val();
+					for(var j = 0;j<num;j++){
+						if(choose == data[j].subject){
+							var myCharts = echarts.init(document.getElementById("class_column"));
+							var myCharts2 = echarts.init(document.getElementById("class_pie"));
+							var option = {
+								title: {
+									text: '班级成绩'
+								},
+								tooltip: {},
+								legend: {
+									data:['比列']
+								},
+								xAxis: {
+									data: ["0~60","60~80","80~90","90~100"]
+								},
+								yAxis: {},
+								series: [{
+									name: '比列',
+									type: 'bar',
+									data: [data[j].dispassPerentge,data[j].passPerentge,data[j].goodPerentge,data[j].perfectPerentge]
+								}]
+							};
+							myCharts.setOption(option);
+
+							myCharts2.setOption({
+								title: {
+									text: '总体成绩'
+								},
+								tooltip: {
+									trigger: 'item',
+									formatter: "{a} <br/>{b}: {c} ({d}%)"
+								},
+								series : [
+									{
+										name: '成绩饼状图',
+										type: 'pie',
+										radius: '55%',
+										data:[
+											{value:data[j].dispassAmount, name:'不及格'+data[j].dispassPerentge},
+											{value:data[j].passAmount, name:'及格'+data[j].passPerentge},
+											{value:data[j].goodAmount, name:'良好'+data[j].goodPerentge},
+											{value:data[j].perfectAmount, name:'优秀'+data[j].perfectPerentge}
+										]
+									},
+								],
+								itemStyle: {
+									normal: {
+										// 阴影的大小
+										shadowBlur: 200,
+										// 阴影水平方向上的偏移
+										shadowOffsetX: 0,
+										// 阴影垂直方向上的偏移
+										shadowOffsetY: 0,
+										// 阴影颜色
+										shadowColor: 'rgba(0, 0, 0, 0.5)'
+									}
+								},
+								backgroundColor: '#2c343c',
+								labelLine: {
+									normal: {
+										lineStyle: {
+											color: 'rgba(255, 255, 255, 0.3)'
+										}
+									}
+								}
+							})
+
+
+
+						}
+					}
+
+
+				})
+			},
+			error: function (xhr,text) {
+				console.log(text);
+			}
+		});
+	});
+
+	//学院成绩
+	$("#my_college_grade").on("click", function () {
+		$(".item_").css("display","none");
+		$(".left_grade_analysis").css("display","block");
+		$(".collegegrade_analysis").css("display","block");
+	});
+	$("#college_analysis_btn").on("click", function () {
+		var college = $("#college_analysis_input").val();
+		console.log(college);
+		var json = {
+			"college":college
+		}
+		$.ajax({
+			url: "/ssms/Student/analyseByCollage.action",
+			type: "POST",
+			dataType: "json",
+			contentType: "application/json",
+			data: JSON.stringify(json),
+			success: function(data){
+				console.log(data);
+				var select = $("<select id='choose_subject'></select>");
+				var num = data.length;
+				var firstpic = data[0].subject;
+				for(var i = 0;i<num;i++){
+					var option = $("<option></option>").html(data[i].subject);
+					select.append(option);
+				}
+				$(".select2").append(select);
+
+				var myCharts = echarts.init(document.getElementById("college_grade_column"));
+				var myCharts2 = echarts.init(document.getElementById("college_grade_pie"));
+				var option = {
+					title: {
+						text: '班级成绩'
+					},
+					tooltip: {},
+					legend: {
+						data:['比列']
+					},
+					xAxis: {
+						data: ["0~60","60~80","80~90","90~100"]
+					},
+					yAxis: {},
+					series: [{
+						name: '比列',
+						type: 'bar',
+						data: [data[0].dispassPerentge,data[0].passPerentge,data[0].goodPerentge,data[0].perfectPerentge]
+					}]
+				};
+				myCharts.setOption(option);
+
+				myCharts2.setOption({
+					title: {
+						text: '总体成绩'
+					},
+					tooltip: {
+						trigger: 'item',
+						formatter: "{a} <br/>{b}: {c} ({d}%)"
+					},
+					series : [
+						{
+							name: '成绩饼状图',
+							type: 'pie',
+							radius: '55%',
+							data:[
+								{value:data[0].dispassAmount, name:'不及格'+data[0].dispassPerentge},
+								{value:data[0].passAmount, name:'及格'+data[0].passPerentge},
+								{value:data[0].goodAmount, name:'良好'+data[0].goodPerentge},
+								{value:data[0].perfectAmount, name:'优秀'+data[0].perfectPerentge}
+							]
+						},
+					],
+					itemStyle: {
+						normal: {
+							// 阴影的大小
+							shadowBlur: 200,
+							// 阴影水平方向上的偏移
+							shadowOffsetX: 0,
+							// 阴影垂直方向上的偏移
+							shadowOffsetY: 0,
+							// 阴影颜色
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					},
+					backgroundColor: '#2c343c',
+					labelLine: {
+						normal: {
+							lineStyle: {
+								color: 'rgba(255, 255, 255, 0.3)'
+							}
+						}
+					}
+				})
+				$("#choose_subject").on("change", function () {
+					var choose = $("#choose_subject").val();
+					for(var j = 0;j<num;j++){
+						if(choose == data[j].subject){
+							var myCharts = echarts.init(document.getElementById("college_grade_column"));
+							var myCharts2 = echarts.init(document.getElementById("college_grade_pie"));
+							var option = {
+								title: {
+									text: '学院成绩'
+								},
+								tooltip: {},
+								legend: {
+									data:['比列']
+								},
+								xAxis: {
+									data: ["0~60","60~80","80~90","90~100"]
+								},
+								yAxis: {},
+								series: [{
+									name: '比列',
+									type: 'bar',
+									data: [data[j].dispassPerentge,data[j].passPerentge,data[j].goodPerentge,data[j].perfectPerentge]
+								}]
+							};
+							myCharts.setOption(option);
+
+							myCharts2.setOption({
+								title: {
+									text: '总体成绩'
+								},
+								tooltip: {
+									trigger: 'item',
+									formatter: "{a} <br/>{b}: {c} ({d}%)"
+								},
+								series : [
+									{
+										name: '成绩饼状图',
+										type: 'pie',
+										radius: '55%',
+										data:[
+											{value:data[j].dispassAmount, name:'不及格'+data[j].dispassPerentge},
+											{value:data[j].passAmount, name:'及格'+data[j].passPerentge},
+											{value:data[j].goodAmount, name:'良好'+data[j].goodPerentge},
+											{value:data[j].perfectAmount, name:'优秀'+data[j].perfectPerentge}
+										]
+									},
+								],
+								itemStyle: {
+									normal: {
+										// 阴影的大小
+										shadowBlur: 200,
+										// 阴影水平方向上的偏移
+										shadowOffsetX: 0,
+										// 阴影垂直方向上的偏移
+										shadowOffsetY: 0,
+										// 阴影颜色
+										shadowColor: 'rgba(0, 0, 0, 0.5)'
+									}
+								},
+								backgroundColor: '#2c343c',
+								labelLine: {
+									normal: {
+										lineStyle: {
+											color: 'rgba(255, 255, 255, 0.3)'
+										}
+									}
+								}
+							})
+						}
+					}
+				})
+			},
+			error: function (xhr,text) {
+				console.log(text);
+			}
+		});
 
 
 
 
-
-
+	});
 
 
 
