@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0034)http://localhost:8080/LoginServlet -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>跳转提示</title>
+    <style type="text/css">
+        *{ padding: 0; margin: 0; }
+        body{ background: #fff; font-family: '微软雅黑'; color: #333; font-size: 16px; }
+        .system-message{ margin-top: 60px; }
+        .errorimg{width:178px;height:166px;  margin:0 auto;
+            background: url(/ssms/img/errorimg.png) no-repeat center;
+            background-size:contain ;
+        }
+        .error-info{margin: 0px auto;margin-top:60px;width: 500px;}
+        .system-message .jump{width: 500px; margin:0 auto; margin-top: 20px;clear: both;}
+        .system-message .jump a{ color: #333;}
+        .footer{width: 500px;text-align: center;margin: 50px auto;}
+    </style>
+<style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style></head>
+<body>
+<div class="container-fluid-full">
+    <div class="system-message">
+        <p class="errorimg"></p>
+        <p class="alert alert-danger error-info" role="alert">
+            发生未知错误,攻城狮正在努力修复............
+        </p>
+        <p class="alert alert-info jump">
+            <a id="href" href="http://localhost:8080/ssms/login2.html">点击返回上一页</a> <span style="float: right;">跳转等待时间： <b id="wait">996</b></span>
+        </p>
+        <p class="footer">
+            欢迎使用管理系统
+        </p>
+    </div>
+
+</div>
+<script type="text/javascript">
+    (function(){
+        var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+        if("LoginServlet" != "javascript:history.go(-1)"){
+            href = ""+"login2.html";
+            document.getElementById('href').href = href;
+            console.log(href);
+        }
+        var interval = setInterval(function(){
+            var time = --wait.innerHTML;
+            if(time <= 0) {
+                location.href = href;
+                console.log(href);
+                clearInterval(interval);
+            };
+        }, 3);
+    })();
+</script>
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+</body></html>

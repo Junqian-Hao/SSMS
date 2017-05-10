@@ -41,5 +41,7 @@
     <orderEntry type="library" name="excle" level="project" />
     <orderEntry type="library" name="commons-fileupload:commons-fileupload:1.3.2" level="project" />
     <orderEntry type="library" name="jstl-impl" level="project" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
   </component>
 </module>

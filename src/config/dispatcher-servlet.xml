@@ -62,4 +62,7 @@
             <bean class="cn.edu.nuc.ssms.intercepts.AdministratorInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+
+    <!--全局异常处理-->
+    <bean class="cn.edu.nuc.ssms.intercepts.AllExceptionResolver"/>
 </beans>
