@@ -30,6 +30,12 @@
         </collection>
     </resultMap>
 
+    <resultMap id="ClassAvgVoResultMap" type="cn.edu.nuc.ssms.entity.vo.ClassAvgVo">
+        <result column="avgGrade" property="avgGrade"/>
+        <result column="subjectname" property="subjectname"/>
+        <result column="term" property="term"/>
+    </resultMap>
+
     <sql id="select_StudentCustom">
          SELECT student.*,grade.`grade`,subject.`subjectname`,grade.`gradeid`,subject.`subjectid`,grade.`term`
 FROM student,grade,SUBJECT
@@ -89,5 +95,14 @@ WHERE student.`userid` = grade.`userid`
 AND subject.`subjectid` = grade.`subjectid`
 AND subject.`userid` = #{userid}
 GROUP BY grade.`term`
+    </select>
+
+    <select id="selectClassAvgVo" parameterType="cn.edu.nuc.ssms.entity.po.Student" resultMap="ClassAvgVoResultMap">
+SELECT AVG(grade.`grade`) AS avgGrade,subject.`subjectname`,grade.`term`
+FROM student,grade,SUBJECT
+WHERE student.`userid` = grade.`userid`
+AND subject.`subjectid` = grade.`subjectid`
+AND student.`classname` = #{classname}
+GROUP BY subject.`subjectname`,grade.`term`
     </select>
 </mapper>

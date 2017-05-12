@@ -112,4 +112,11 @@ public interface StudentService {
      * @return
      */
     Set<String> selectAllColage();
+
+    /**
+     * 查询学生自己成绩
+     * @param student
+     * @return
+     */
+    List selectOneselfStudentGrad(Student student);
 }

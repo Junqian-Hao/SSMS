@@ -3,6 +3,7 @@ package cn.edu.nuc.ssms.service.impl;
 import cn.edu.nuc.ssms.entity.custom.StudentCustom;
 import cn.edu.nuc.ssms.entity.po.*;
 import cn.edu.nuc.ssms.entity.vo.AnalyseVo;
+import cn.edu.nuc.ssms.entity.vo.ClassAvgVo;
 import cn.edu.nuc.ssms.entity.vo.GradeVo;
 import cn.edu.nuc.ssms.entity.vo.SupperVo;
 import cn.edu.nuc.ssms.mapper.NoticeMapper;
@@ -290,5 +291,17 @@ public class StudentServiceImpl implements StudentService {
             strings.add(student.getCollege());
         }
         return strings;
+    }
+
+    @Override
+    public List selectOneselfStudentGrad(Student student) {
+        ArrayList retuenMessage = new ArrayList();
+        List<StudentCustom> studentCustoms = studentCustomMapper.selectStudentCustomByStudenId(student.getUserid());
+        StudentCustom studentCustom = studentCustoms.get(0);
+        retuenMessage.add(studentCustom);
+        student.setClassname(studentCustom.getClassname());
+        List<ClassAvgVo> classAvgVos = studentCustomMapper.selectClassAvgVo(student);
+        retuenMessage.add(classAvgVos);
+        return retuenMessage;
     }
 }

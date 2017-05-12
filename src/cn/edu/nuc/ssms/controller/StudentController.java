@@ -225,5 +225,17 @@ public class StudentController {
         return studentService.selectAllColage();
     }
 
+    /**
+     * 查询学生自己的成绩
+     * @param student
+     * @return
+     */
+    @RequestMapping("/selectOneselfStudentGrad")
+    @ResponseBody
+    public List selectOneselfStudentGrad(@RequestBody Student student) {
+        log.debug("查询学生自己的成绩");
+        List list = studentService.selectOneselfStudentGrad(student);
+        return list;
 
+    }
 }

@@ -85,4 +85,11 @@ public class StudentServiceTest {
         List<Integer> integers = studentService.selectAllStudentId();
         System.out.println(integers);
     }
+    @Test
+    public void testSelectOneselfStudentGrad(){
+        Student student = new Student();
+        student.setUserid(1234567890);
+        List list = studentService.selectOneselfStudentGrad(student);
+        System.out.println(list);
+    }
 }
