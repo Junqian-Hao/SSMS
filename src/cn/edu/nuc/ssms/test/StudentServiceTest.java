@@ -3,7 +3,9 @@ package cn.edu.nuc.ssms.test;
 import cn.edu.nuc.ssms.entity.custom.StudentCustom;
 import cn.edu.nuc.ssms.entity.po.Notice;
 import cn.edu.nuc.ssms.entity.po.Student;
+import cn.edu.nuc.ssms.entity.po.User;
 import cn.edu.nuc.ssms.entity.vo.AnalyseVo;
+import cn.edu.nuc.ssms.entity.vo.SupperVo;
 import cn.edu.nuc.ssms.service.StudentService;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,5 +72,17 @@ public class StudentServiceTest {
         analyseVo.setCollege("软件学院");
         List<Map<String,Object>> stringMapMap = studentService.analyseByCollage(analyseVo);
         System.out.println(stringMapMap);
+    }
+    @Test
+    public void testSelectSupperVoById(){
+        User user = new User();
+        user.setUserid(1112);
+        SupperVo supperVo = studentService.selectSupperVoById(user);
+        System.out.println(supperVo);
+    }
+    @Test
+    public void testSelectAllStudentId(){
+        List<Integer> integers = studentService.selectAllStudentId();
+        System.out.println(integers);
     }
 }

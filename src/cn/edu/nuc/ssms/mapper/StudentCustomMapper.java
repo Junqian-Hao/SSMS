@@ -1,7 +1,9 @@
 package cn.edu.nuc.ssms.mapper;
 
 import cn.edu.nuc.ssms.entity.custom.StudentCustom;
+import cn.edu.nuc.ssms.entity.po.User;
 import cn.edu.nuc.ssms.entity.vo.AnalyseVo;
+import cn.edu.nuc.ssms.entity.vo.TeacherSelectGradVo;
 
 import java.util.List;
 
@@ -26,4 +28,6 @@ public interface StudentCustomMapper {
     List<Float> selectGradBySubjectNameandCollage(AnalyseVo analyseVo);
 
     List<String> selectSubjectNameByCollage(AnalyseVo analyseVo);
+
+    List<TeacherSelectGradVo> selectTeacherGrade(User user);
 }

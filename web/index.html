@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/base.css">
-    <script src="lib/jquery/jquery.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
 	<script src="js/echarts.min.js"></script>
     <title></title>
 </head>
@@ -21,7 +24,7 @@
 			</ul>
 		</div>
 		<div>
-			<span class="notice"></span>
+			<span class="notice">公告</span>
 		</div>
 		<div class="left_side">
 			<ul class="admin_announcement item_">
@@ -159,6 +162,10 @@
 					<input id="search_input" class="two_label_input" type="text">
 					<button id="search_btn">确定</button>
 				</div>
+				<form id="form_submit" enctype="multipart/form-data">
+					<input type="file" name="gradexcel"/>
+					<input id="grade_submit_excel" type="submit" value="通过excel表提交"/>
+				</form>
 				<table class="class_grade">
 					<tbody id="stu_grade">
 

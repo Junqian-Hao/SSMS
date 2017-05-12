@@ -93,19 +93,19 @@ public class LoginController {
      */
     @RequestMapping("/selectNowUser")
     @ResponseBody
-    public User selectNowUser(HttpServletRequest request) {
+    public Student selectNowUser(HttpServletRequest request) {
         log.debug("查询当前登录用户信息");
         Cookie[] cookies = request.getCookies();
         int userIdCookie = Utils.getUserIdCookie(cookies);
         int idLength = (userIdCookie + "").length();
         if (idLength == 4) {
             User user = administratorService.selectAdministrator(userIdCookie);
-            return user;
+            Student student = Utils.userToStudent(user);
+            return student;
         }
         if (idLength == 10) {
             Student student = studentService.selectStudent(userIdCookie);
-            User user = Utils.studentToUser(student);
-            return user;
+            return student;
         }
         return null;
     }

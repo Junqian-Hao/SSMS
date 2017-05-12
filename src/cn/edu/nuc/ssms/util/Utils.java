@@ -28,6 +28,22 @@ public class Utils {
     }
 
     /**
+     * 将user对象转换成student 对象
+     * @param user
+     * @return
+     */
+    public static Student userToStudent(User user) {
+        Student student = new Student();
+        student.setUserid(user.getUserid());
+        student.setUserpassword(user.getUserpassword());
+        student.setSex(user.getSex());
+        student.setName(user.getName());
+        student.setPhonenumber(user.getPhonenumber());
+        student.setType(user.getType());
+        return student;
+    }
+
+    /**
      * 从cookie数组中取出useridcookie
      * @param cookies
      * @return

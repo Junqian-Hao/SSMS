@@ -2,7 +2,7 @@ package cn.edu.nuc.ssms.test;
 
 import cn.edu.nuc.ssms.entity.custom.StudentCustom;
 import cn.edu.nuc.ssms.entity.po.User;
-import cn.edu.nuc.ssms.entity.vo.SupperVo;
+import cn.edu.nuc.ssms.entity.vo.TeacherSelectGradVo;
 import cn.edu.nuc.ssms.service.TeacherService;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,11 +31,13 @@ public class TeacherServiceTest {
         List<StudentCustom> studentCustoms = teacherService.selectAllStudent();
         System.out.println(studentCustoms);
     }
+
     @Test
-    public void testSelectSupperVoById(){
+    public void testSelectTeacherGrade() {
         User user = new User();
         user.setUserid(1112);
-        SupperVo supperVo = teacherService.selectSupperVoById(user);
-        System.out.println(supperVo);
-    };
+        List<TeacherSelectGradVo> teacherSelectGradVo = teacherService.selectTeacherGrade(user);
+        System.out.println(teacherSelectGradVo);
+    }
+
 }

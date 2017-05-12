@@ -4,18 +4,17 @@ import cn.edu.nuc.ssms.entity.custom.StudentCustom;
 import cn.edu.nuc.ssms.entity.po.*;
 import cn.edu.nuc.ssms.entity.vo.AnalyseVo;
 import cn.edu.nuc.ssms.entity.vo.GradeVo;
+import cn.edu.nuc.ssms.entity.vo.SupperVo;
 import cn.edu.nuc.ssms.mapper.NoticeMapper;
 import cn.edu.nuc.ssms.mapper.StudentCustomMapper;
 import cn.edu.nuc.ssms.mapper.StudentMapper;
 import cn.edu.nuc.ssms.mapper.SubjectMapper;
 import cn.edu.nuc.ssms.service.StudentService;
+import cn.edu.nuc.ssms.service.TeacherService;
 import cn.edu.nuc.ssms.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author 王启良
@@ -32,6 +31,9 @@ public class StudentServiceImpl implements StudentService {
     StudentCustomMapper studentCustomMapper;
     @Autowired
     SubjectMapper subjectMapper;
+
+    @Autowired
+    TeacherService teacherService;
     @Override
     public List<Notice> selectAllNodice() {
         NoticeExample noticeExample = new NoticeExample();
@@ -192,7 +194,7 @@ public class StudentServiceImpl implements StudentService {
             int goodAmount = 0;
             int perfectAmount = 0;
 
-            float passPerentge = 0;
+                float passPerentge = 0;
             float dispassPerentge = 0;
             float goodPerentge = 0;
             float perfectPerentge = 0;
@@ -238,5 +240,55 @@ public class StudentServiceImpl implements StudentService {
         return resultList;
     }
 
+    @Override
+    public SupperVo selectSupperVoById(User user) {
+        SupperVo supperVo = new SupperVo();
+        int id = user.getUserid();
+        int idLength = (id + "").length();
+        if (idLength == 4) {
+            User teacher = teacherService.selectTeacher(id);
+            supperVo.setUser(teacher);
 
+            List<Subject> subjects = teacherService.selectTeachingClass(id);
+            supperVo.setSubjects(subjects);
+        }
+        if (idLength == 10) {
+            List<StudentCustom> studentCustoms = studentCustomMapper.selectStudentCustomByStudenId(id);
+            supperVo.setStudentCustom(studentCustoms.get(0));
+        }
+        return supperVo;
+    }
+
+    @Override
+    public List<Integer> selectAllStudentId() {
+        ArrayList<Integer> integers = new ArrayList<>();
+        StudentExample studentExample = new StudentExample();
+        List<Student> students = studentMapper.selectByExample(studentExample);
+        for (Student student : students) {
+            integers.add(student.getUserid());
+        }
+        return integers;
+    }
+
+    @Override
+    public Set<String> selectAllClassName() {
+        HashSet<String> strings = new HashSet<>();
+        StudentExample studentExample = new StudentExample();
+        List<Student> students = studentMapper.selectByExample(studentExample);
+        for (Student student : students) {
+            strings.add(student.getClassname());
+        }
+        return strings;
+    }
+
+    @Override
+    public Set<String> selectAllColage() {
+        HashSet<String> strings = new HashSet<>();
+        StudentExample studentExample = new StudentExample();
+        List<Student> students = studentMapper.selectByExample(studentExample);
+        for (Student student : students) {
+            strings.add(student.getCollege());
+        }
+        return strings;
+    }
 }

@@ -4,7 +4,9 @@ import cn.edu.nuc.ssms.entity.custom.StudentCustom;
 import cn.edu.nuc.ssms.entity.po.Notice;
 import cn.edu.nuc.ssms.entity.po.Student;
 import cn.edu.nuc.ssms.entity.po.Subject;
+import cn.edu.nuc.ssms.entity.po.User;
 import cn.edu.nuc.ssms.entity.vo.AnalyseVo;
+import cn.edu.nuc.ssms.entity.vo.SupperVo;
 import cn.edu.nuc.ssms.service.StudentService;
 import cn.edu.nuc.ssms.util.Utils;
 import org.apache.commons.logging.Log;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Author 王启良
@@ -34,6 +37,7 @@ public class StudentController {
 
     /**
      * 查询所有公告
+     *
      * @return
      */
     @RequestMapping("/selectAllNotice")
@@ -46,12 +50,13 @@ public class StudentController {
 
     /**
      * 分页查询公告
+     *
      * @param map
      * @return
      */
     @RequestMapping("/selectNotice")
     @ResponseBody
-    public List<Notice> selectNotice(@RequestBody Map<String,Integer> map) {
+    public List<Notice> selectNotice(@RequestBody Map<String, Integer> map) {
         log.debug("分页查询公告");
         int pageSize = 20;
         if (map.containsKey("pageSize")) {
@@ -63,6 +68,7 @@ public class StudentController {
 
     /**
      * 查询当前登陆的学生
+     *
      * @param request
      * @return
      */
@@ -83,6 +89,7 @@ public class StudentController {
 
     /**
      * 修改学生信息
+     *
      * @param student
      * @return
      */
@@ -98,6 +105,7 @@ public class StudentController {
 
     /**
      * 查询全班成绩
+     *
      * @param studentCustom
      * @return
      */
@@ -111,6 +119,7 @@ public class StudentController {
 
     /**
      * 查询全班学生信息
+     *
      * @param student
      * @return
      */
@@ -124,6 +133,7 @@ public class StudentController {
 
     /**
      * 查询教师所授课程
+     *
      * @param subject
      * @return
      */
@@ -137,31 +147,83 @@ public class StudentController {
 
     /**
      * 班级成绩分析
+     *
      * @param analyseVo
      * @return
      */
     @RequestMapping("/analyseByClass")
     @ResponseBody
-    public List<Map<String,Object>> analyseByClass(@RequestBody AnalyseVo analyseVo) {
+    public List<Map<String, Object>> analyseByClass(@RequestBody AnalyseVo analyseVo) {
         log.debug("班级成绩分析");
 
-        List<Map<String,Object>> stringMapMap = studentService.analyseByClass(analyseVo);
+        List<Map<String, Object>> stringMapMap = studentService.analyseByClass(analyseVo);
 
         return stringMapMap;
     }
 
     /**
      * 学院成绩分析
+     *
      * @param analyseVo
      * @return
      */
     @RequestMapping("/analyseByCollage")
     @ResponseBody
-    public List<Map<String,Object>> analyseByCollage(@RequestBody AnalyseVo analyseVo) {
+    public List<Map<String, Object>> analyseByCollage(@RequestBody AnalyseVo analyseVo) {
         log.debug("学院成绩分析");
 
-        List<Map<String,Object>> stringMapMap = studentService.analyseByCollage(analyseVo);
+        List<Map<String, Object>> stringMapMap = studentService.analyseByCollage(analyseVo);
 
         return stringMapMap;
     }
+
+    /**
+     * 根据id查询教师或者学生的信息
+     *
+     * @param user
+     * @return
+     */
+    @RequestMapping("/selectSupperVoById")
+    @ResponseBody
+    public SupperVo selectSupperVoById(@RequestBody User user) {
+        log.debug("根据id查询教师或者学生的信息");
+        SupperVo supperVo = studentService.selectSupperVoById(user);
+        log.debug(supperVo);
+        return supperVo;
+    }
+
+    /**
+     * 查询所有学生id
+     * @return
+     */
+    @RequestMapping("/selectAllStudentId")
+    @ResponseBody
+    public List<Integer> selectAllStudentId() {
+        log.debug("查询所有学生id");
+        return studentService.selectAllStudentId();
+    }
+
+    /**
+     * 查询所有班级名字
+     * @return
+     */
+    @RequestMapping("/selectAllClassName")
+    @ResponseBody
+    public Set<String> selectAllClassName() {
+        log.debug("查询所有班级名字");
+        return studentService.selectAllClassName();
+    }
+
+    /**
+     * 查询所有学院名称
+     * @return
+     */
+    @RequestMapping("/selectAllCollage")
+    @ResponseBody
+    public Set<String> selectAllCollage() {
+        log.debug("查询所有学院名称");
+        return studentService.selectAllColage();
+    }
+
+
 }

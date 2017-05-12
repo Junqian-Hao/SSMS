@@ -7,7 +7,9 @@
     width: 100%;
     height: 40px;
     position: relative;
-    border: 1px solid red;
+	background: linear-gradient(rgb(44, 55, 66) 0%, rgb(40, 48, 58) 100%);
+	border-bottom: 1px solid rgb(25, 30, 35);
+	opacity: 0.9;
 }
 
 .header .header_fun{
@@ -18,20 +20,23 @@
 .header .header_fun li{
     float: left;
     padding: 5px 20px;
+	margin-top: -4px;
 }
 
 .notice{
     text-align: center;
-    background: #ccc;
+    background: rgb(239,238,243);
+	color: #29323a;;
     height: 25px;
     line-height: 25px;
+	border-bottom: 1px solid #efeef3;
     display: block;
 }
 
 .left_side{
     width: 15%;
-    height: 663px;
-    background: #aaa;
+    height: 690px;
+    background: rgb(231,244,253);
     position: relative;
     float: left;
 }
@@ -48,10 +53,11 @@
 }
 
 .item{
-	margin-left: -5px;
+	margin-left: -12px;
     padding-top: 10px;
     width: 100%;
     text-align: center;
+	border-bottom: 1px solid #dae1e8;
 }
 
 .left_side_infor li:hover{
@@ -60,15 +66,14 @@
 
 .content{
     width: 85%;
-    height: 663px;
-    background: green;
+    height: 690px;
+    background: rgb(246,248,249);
     float: right;
 }
 
 .content .admin_infor input,
 .content .modify_admin_infor input{
-    width: 40px;
-    padding: 0 40px;
+    width: 120px;
     vertical-align: middle;
 }
 
@@ -140,8 +145,8 @@
 
 #search_btn{
 	position: absolute;
-	top: 22px;
-	left: 548px;
+	top: 20px;
+	left: 544px;
 }
 
 #btn_query_infor{
@@ -271,7 +276,8 @@
 	height: 270px;
 }
 
-.select{
+.select,
+.select2{
 	float: left;
 	margin-left: 20px;
 }
@@ -279,14 +285,33 @@
 #class_column,
 #college_grade_column{
 	float: left;
+	margin-left: 20px;
+	margin-top: 40px;
 }
 
 #class_pie,
 #college_grade_pie{
 	float: right;
+	margin-right: 20px;
+	margin-top: 40px;
 }
 
+.item>a:hover{
+	color: rgba(51, 69, 90, 1);
+}
 
+#form_submit{
+	visibility: hidden;
+}
 
+.teacher_record_grade form{
+	text-align: center;
+}
 
+#grade_submit_excel{
+	margin-left: -70px;
+}
 
+.class_grade{
+	margin: 20px auto;
+}

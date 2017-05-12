@@ -4,7 +4,7 @@ import cn.edu.nuc.ssms.entity.custom.StudentCustom;
 import cn.edu.nuc.ssms.entity.po.Grade;
 import cn.edu.nuc.ssms.entity.po.Subject;
 import cn.edu.nuc.ssms.entity.po.User;
-import cn.edu.nuc.ssms.entity.vo.SupperVo;
+import cn.edu.nuc.ssms.entity.vo.TeacherSelectGradVo;
 import cn.edu.nuc.ssms.service.TeacherService;
 import cn.edu.nuc.ssms.util.Utils;
 import org.apache.commons.logging.Log;
@@ -122,20 +122,7 @@ public class TeacherController {
         return "{\"code\": \"1\"}";
     }
 
-    /**
-     * 根据id查询教师或者学生的信息
-     *
-     * @param user
-     * @return
-     */
-    @RequestMapping("/selectSupperVoById")
-    @ResponseBody
-    public SupperVo selectSupperVoById(@RequestBody User user) {
-        log.debug("根据id查询教师或者学生的信息");
-        SupperVo supperVo = teacherService.selectSupperVoById(user);
-        log.debug(supperVo);
-        return supperVo;
-    }
+
 
 
     /**
@@ -180,4 +167,29 @@ public class TeacherController {
         log.debug("插入失败");
         return resultMap;
     }
+
+    /**
+     * 查询教师所授课程成绩分析
+     * @param user
+     * @return
+     */
+    @RequestMapping("/selectTeacherGrade")
+    @ResponseBody
+    public List<TeacherSelectGradVo> selectTeacherGrade(@RequestBody User user) {
+        log.debug("查询教师所授课程成绩分析");
+        List<TeacherSelectGradVo> teacherSelectGradVos = teacherService.selectTeacherGrade(user);
+        return teacherSelectGradVos;
+    }
+
+    /**
+     * 查询所有教师id
+     * @return
+     */
+    @RequestMapping("/selectAllTeacherId")
+    @ResponseBody
+    public List<Integer> selectAllTeacherId() {
+        log.debug("查询所有教师id");
+        return teacherService.selectAllTeacherId();
+    }
+
 }

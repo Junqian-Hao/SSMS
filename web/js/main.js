@@ -1,4 +1,5 @@
 $(function(){
+	$("#announcement").css("display","none");
 	var type = "";
 	var userid = "";
 	var subjectid = "";
@@ -11,6 +12,19 @@ $(function(){
 		success: function(data){
 			$("body").attr("data-type",data.type);
 			$("body").attr("data-id",data.userid);
+			if(data.type == 2){
+				$("#announcement").css("display","none");
+				$("#admin_query").css("display","none");
+				$("#admin_manage").css("display","none");
+				$("#grade_analysis").css("display","none");
+			}else if(data.type == 1){
+				$("#announcement").css("display","none");
+				$("#modify_grade").css("display","none");
+				$("#my_grade").css("display","none");
+			}else if(data.type == 0){
+				$("#my_grade").css("display","none");
+				$(".header_fun").css("margin_left","50%");
+			}
 		},
 		error: function(xhr,text){
 			console.log(text);
@@ -35,25 +49,24 @@ $(function(){
 		$(".item_").css("display","none");
 		$(".left_side_infor").css("display","block");
 		$.ajax({
-			url: "/ssms/Student/selectStudent.action",
+			url: "/ssms/selectNowUser.action",
 			type: "POST",
 			dataType: "json",
 			contentType: "application/json",
 			success: function(data){
 				if(type == 2){
-					var newTime = new Date(data.student.birthday);
+					var newTime = new Date(data.birthday);
 					var year = newTime.getFullYear();
 					var month = newTime.getMonth()+1;
-					$("#stu_name").attr("value",data.student.name);
-					$("#stu_college").attr("value",data.student.college);
-					$("#stu_class").attr("value",data.student.classname);
-					$("#stu_address").attr("value",data.student.nativeplace);
-					$("#stu_tel").attr("value",data.student.phonenumber);
+					$("#stu_name").attr("value",data.name);
+					$("#stu_college").attr("value",data.college);
+					$("#stu_class").attr("value",data.classname);
+					$("#stu_address").attr("value",data.nativeplace);
+					$("#stu_tel").attr("value",data.phonenumber);
 					$("#stu_birth").attr("value",year+"-"+month);
-					$("#stu_sex:first-child").html(data.student.sex);
+					$("#stu_sex:first-child").html(data.sex);
 				}else{
 					$("#admin_name").attr("value",data.name);
-					$("#admin_password").attr("value",data.userpassword);
 					$("#admin_sex").attr("value",data.sex);
 					$("#admin_tel").attr("value",data.phonenumber);
 				}
@@ -157,7 +170,6 @@ $(function(){
 				contentType: "application/json",
 				data: JSON.stringify(json3),
 				success: function(data){
-					console.log(data);
 					$(".first_tr").nextAll().remove();
 					$(".first_tr").remove();
 					$("#submit_grade").remove();
@@ -178,8 +190,10 @@ $(function(){
 					for(var j = 1;j<subjectnum+1;j++){
 						td = td + "<td><input class='grade_table_input' type='text'></td>";
 					}
-					if(data[0].gradeVos[0].grade == 0){
+					var teacher_subjectid = subjectid.charAt(subjectid.length-1);
+					if(data[0].gradeVos[teacher_subjectid].grade == 0){
 						$(".class_grade").css("visibility","visible");
+						$("#form_submit").css("visibility","visible");
 						for(var i = 0;i<len;i++){
 							var tr = "<tr><td class='stu_grade_userid'>"+data[i].userid+"</td><td>"+data[i].name+"</td>"+td;
 							var h = $.parseHTML(tr);
@@ -285,7 +299,7 @@ $(function(){
 				"userid":id
 			}
 			$.ajax({
-				url: "/ssms/Teacher/selectSupperVoById.action",
+				url: "/ssms/Student/selectSupperVoById.action",
 				type: "POST",
 				dataType: "json",
 				contentType: "application/json",
@@ -464,9 +478,9 @@ $(function(){
 		$(".grade_query").css("display","block");
 	});
 	$("#submit_id").on("click", function () {
+		$(".class_grade2").empty();
 		var value = $("#class_stu_id").val();
 		var choose = $(".choose").val();
-		console.log(choose);
 		if(choose == "班级"){
 			var json = {
 				"classname":value
@@ -506,7 +520,41 @@ $(function(){
 				}
 			});
 		}else{
-
+			var value = $("#class_stu_id").val();
+			var choose = $(".choose").val();
+			var json = {
+				"userid":value
+			};
+			$.ajax({
+				url: "/ssms/Student/selectSupperVoById.action",
+				type: "POST",
+				dataType: "json",
+				contentType: "application/json",
+				data: JSON.stringify(json),
+				success: function (data) {
+					var newtr = $("<tr class='newtr'></tr>");
+					var second = $("<tr></tr>");
+					var tdid = $("<td></td>").html("学号");
+					var tdname = $("<td></td>").html("姓名");
+					var stuid = $("<td></td>").html(data.studentCustom.userid);
+					var stuname = $("<td></td>").html(data.studentCustom.name);
+					$(newtr).append(tdid,tdname);
+					$(second).append(stuid,stuname);
+					$(".class_grade2").append(newtr);
+					var subjectnum = data.studentCustom.gradeVos.length;
+					for(var i = 0;i<subjectnum;i++){
+						var td = $("<td></td>").html(data.studentCustom.gradeVos[i].subject);
+						var grade = $("<td></td>").html(data.studentCustom.gradeVos[i].grade);
+						$(".newtr").append(td);
+						$(second).append(grade);
+					}
+					$(".class_grade2").append(newtr,second);
+					$(".class_grade2").css("visibility","visible");
+				},
+				error: function(xhr,text){
+					console.log(text)
+				}
+			});
 		}
 	});
 
@@ -526,7 +574,7 @@ $(function(){
 			"userid":id
 		}
 		$.ajax({
-			url: "/ssms/Teacher/selectSupperVoById.action",
+			url: "/ssms/Student/selectSupperVoById.action",
 			type: "POST",
 			dataType: "json",
 			contentType: "application/json",
@@ -598,16 +646,19 @@ $(function(){
 	$("#my_grade").on("click",function(){
 		$(".item_").css("display","none");
 		$(".my_grade").css("display","block");
+		console.log(userid);
 		var json = {
-			"userid":userid
+			"userid": userid
 		}
+		console.log(json);
 		$.ajax({
-			url: "/ssms/Teacher/selectSupperVoById.action",
+			url: "/ssms/Student/selectSupperVoById.action",
 			type: "POST",
 			dataType: "json",
 			contentType: "application/json",
 			data: JSON.stringify(json),
 			success: function(data){
+				console.log(data);
 				$(".my_grade").empty();
 				var table = $("<table class='my_table'></table>");
 				var firsttr = $("<tr></tr>");
@@ -629,6 +680,10 @@ $(function(){
 				$(table).append(firsttr,secondtr);
 				$(".my_grade").append(table);
 				$(".my_table").css("visibility","visible");
+
+
+
+
 			},
 			error: function(xhr,text){
 				console.log(text);
@@ -670,7 +725,7 @@ $(function(){
 				var myCharts2 = echarts.init(document.getElementById("class_pie"));
 				var option = {
 					title: {
-						text: '班级成绩'
+						text: '柱状图'
 					},
 					tooltip: {},
 					legend: {
@@ -683,6 +738,18 @@ $(function(){
 					series: [{
 						name: '比列',
 						type: 'bar',
+						itemStyle: {
+							normal: {
+								color: function(params) {
+									var colorList = [
+										'#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+										'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+										'#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+									];
+									return colorList[params.dataIndex]
+								}
+							}
+						},
 						data: [data[0].dispassPerentge,data[0].passPerentge,data[0].goodPerentge,data[0].perfectPerentge]
 					}]
 				};
@@ -690,7 +757,7 @@ $(function(){
 
 				myCharts2.setOption({
 					title: {
-						text: '总体成绩'
+						text: '饼状图'
 					},
 					tooltip: {
 						trigger: 'item',
@@ -721,7 +788,6 @@ $(function(){
 							shadowColor: 'rgba(0, 0, 0, 0.5)'
 						}
 					},
-					backgroundColor: '#2c343c',
 					labelLine: {
 						normal: {
 							lineStyle: {
@@ -738,7 +804,7 @@ $(function(){
 							var myCharts2 = echarts.init(document.getElementById("class_pie"));
 							var option = {
 								title: {
-									text: '班级成绩'
+									text: '柱状图'
 								},
 								tooltip: {},
 								legend: {
@@ -751,6 +817,18 @@ $(function(){
 								series: [{
 									name: '比列',
 									type: 'bar',
+									itemStyle: {
+										normal: {
+											color: function(params) {
+												var colorList = [
+													'#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+													'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+													'#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+												];
+												return colorList[params.dataIndex]
+											}
+										}
+									},
 									data: [data[j].dispassPerentge,data[j].passPerentge,data[j].goodPerentge,data[j].perfectPerentge]
 								}]
 							};
@@ -758,7 +836,7 @@ $(function(){
 
 							myCharts2.setOption({
 								title: {
-									text: '总体成绩'
+									text: '饼状图'
 								},
 								tooltip: {
 									trigger: 'item',
@@ -789,7 +867,6 @@ $(function(){
 										shadowColor: 'rgba(0, 0, 0, 0.5)'
 									}
 								},
-								backgroundColor: '#2c343c',
 								labelLine: {
 									normal: {
 										lineStyle: {
@@ -846,7 +923,7 @@ $(function(){
 				var myCharts2 = echarts.init(document.getElementById("college_grade_pie"));
 				var option = {
 					title: {
-						text: '班级成绩'
+						text: '柱状图'
 					},
 					tooltip: {},
 					legend: {
@@ -859,6 +936,18 @@ $(function(){
 					series: [{
 						name: '比列',
 						type: 'bar',
+						itemStyle: {
+							normal: {
+								color: function(params) {
+									var colorList = [
+										'#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+										'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+										'#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+									];
+									return colorList[params.dataIndex]
+								}
+							}
+						},
 						data: [data[0].dispassPerentge,data[0].passPerentge,data[0].goodPerentge,data[0].perfectPerentge]
 					}]
 				};
@@ -866,7 +955,7 @@ $(function(){
 
 				myCharts2.setOption({
 					title: {
-						text: '总体成绩'
+						text: '饼状图'
 					},
 					tooltip: {
 						trigger: 'item',
@@ -897,7 +986,6 @@ $(function(){
 							shadowColor: 'rgba(0, 0, 0, 0.5)'
 						}
 					},
-					backgroundColor: '#2c343c',
 					labelLine: {
 						normal: {
 							lineStyle: {
@@ -914,7 +1002,7 @@ $(function(){
 							var myCharts2 = echarts.init(document.getElementById("college_grade_pie"));
 							var option = {
 								title: {
-									text: '学院成绩'
+									text: '柱状图'
 								},
 								tooltip: {},
 								legend: {
@@ -927,6 +1015,18 @@ $(function(){
 								series: [{
 									name: '比列',
 									type: 'bar',
+									itemStyle: {
+										normal: {
+											color: function(params) {
+												var colorList = [
+													'#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+													'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+													'#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+												];
+												return colorList[params.dataIndex]
+											}
+										}
+									},
 									data: [data[j].dispassPerentge,data[j].passPerentge,data[j].goodPerentge,data[j].perfectPerentge]
 								}]
 							};
@@ -934,7 +1034,7 @@ $(function(){
 
 							myCharts2.setOption({
 								title: {
-									text: '总体成绩'
+									text: '饼状图'
 								},
 								tooltip: {
 									trigger: 'item',
@@ -965,7 +1065,6 @@ $(function(){
 										shadowColor: 'rgba(0, 0, 0, 0.5)'
 									}
 								},
-								backgroundColor: '#2c343c',
 								labelLine: {
 									normal: {
 										lineStyle: {
@@ -988,9 +1087,50 @@ $(function(){
 
 	});
 
+	//excel表提交
+	$("#grade_submit_excel").on("click",function(){
+		var formData = new FormData(document.getElementById("form_submit"));
+		$.ajax({
+			url: "/ssms/Teacher/inputGradeByEXCEL.action",
+			type: "POST",
+			data: formData,
+			async: false,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function (data) {
+				console.log(data);
+				if(data.code == 0){
+					alert("提交成功");
+				}else{
+					alert("提交失败");
+				}
+			},
+			error: function(xhr,text){
+				console.log(text);
+			}
+		});
+	});
 
-
-
+	//模糊查询
+	$(function(){
+		$.ajax({
+			url: "/ssms/Student/selectAllClassName.action",
+			type: "POST",
+			dataType: "json",
+			contentType: "application/json",
+			success: function(data){
+				var data = data;
+				$("#search_input").autocomplete({
+					source: data,
+					minLength: 2
+				});
+			},
+			error: function(xhr,text){
+				console.log(text);
+			}
+		});
+	});
 
 
 

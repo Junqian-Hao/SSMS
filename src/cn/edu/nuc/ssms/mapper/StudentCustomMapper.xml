@@ -20,6 +20,16 @@
             <result column="term" property="term"/>
         </collection>
     </resultMap>
+    <resultMap id="TeacherSelectGradVoResultMap" type="cn.edu.nuc.ssms.entity.vo.TeacherSelectGradVo">
+        <collection property="termVos" ofType="cn.edu.nuc.ssms.entity.vo.TermVo">
+            <result column="term" property="termId"/>
+            <collection property="subjectGradVos" ofType="cn.edu.nuc.ssms.entity.vo.SubjectGradVo">
+                <result column="passPerentge" property="passPerentge"/>
+                <result column="avageGrad" property="avageGrad"/>
+            </collection>
+        </collection>
+    </resultMap>
+
     <sql id="select_StudentCustom">
          SELECT student.*,grade.`grade`,subject.`subjectname`,grade.`gradeid`,subject.`subjectid`,grade.`term`
 FROM student,grade,SUBJECT
@@ -71,5 +81,13 @@ FROM student
        SELECT DISTINCT subject.`subjectname`
 FROM student,grade,SUBJECT
 WHERE student.`userid` = grade.`userid` AND subject.`subjectid` = grade.`subjectid`AND student.`college`= #{college}
+    </select>
+    <select id="selectTeacherGrade" parameterType="cn.edu.nuc.ssms.entity.po.User" resultMap="TeacherSelectGradVoResultMap">
+        SELECT grade.`term`,AVG(grade.`grade`) AS avageGrad,SUM(CASE WHEN grade.`grade`>59 THEN 1 ELSE 0 END )/COUNT(grade.`grade`) AS passPerentge
+FROM student,grade,SUBJECT
+WHERE student.`userid` = grade.`userid`
+AND subject.`subjectid` = grade.`subjectid`
+AND subject.`userid` = #{userid}
+GROUP BY grade.`term`
     </select>
 </mapper>

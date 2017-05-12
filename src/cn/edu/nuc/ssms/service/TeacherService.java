@@ -4,7 +4,7 @@ import cn.edu.nuc.ssms.entity.custom.StudentCustom;
 import cn.edu.nuc.ssms.entity.po.Grade;
 import cn.edu.nuc.ssms.entity.po.Subject;
 import cn.edu.nuc.ssms.entity.po.User;
-import cn.edu.nuc.ssms.entity.vo.SupperVo;
+import cn.edu.nuc.ssms.entity.vo.TeacherSelectGradVo;
 
 import java.io.File;
 import java.util.List;
@@ -53,12 +53,6 @@ public interface TeacherService {
      */
     boolean inputGrade(List<Grade> list);
 
-    /**
-     * 通过id查询所有信息
-     * @param user
-     * @return
-     */
-    SupperVo selectSupperVoById(User user);
 
     /**
      * 教师通过excle表插入成绩
@@ -68,4 +62,15 @@ public interface TeacherService {
      */
     List<String> inputGradeByEXCEL(File file,int userid);
 
+    /**
+     * 教师查询所授课程成绩
+     * @param user
+     * @return
+     */
+    List<TeacherSelectGradVo> selectTeacherGrade(User user);
+    /**
+     *模糊查询教师id
+     * @return
+     */
+    List<Integer> selectAllTeacherId();
 }

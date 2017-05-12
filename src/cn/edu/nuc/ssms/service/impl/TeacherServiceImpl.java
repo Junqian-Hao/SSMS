@@ -2,7 +2,7 @@ package cn.edu.nuc.ssms.service.impl;
 
 import cn.edu.nuc.ssms.entity.custom.StudentCustom;
 import cn.edu.nuc.ssms.entity.po.*;
-import cn.edu.nuc.ssms.entity.vo.SupperVo;
+import cn.edu.nuc.ssms.entity.vo.TeacherSelectGradVo;
 import cn.edu.nuc.ssms.mapper.GradeMapper;
 import cn.edu.nuc.ssms.mapper.StudentCustomMapper;
 import cn.edu.nuc.ssms.mapper.SubjectMapper;
@@ -83,24 +83,7 @@ public class TeacherServiceImpl implements TeacherService {
         return true;
     }
 
-    @Override
-    public SupperVo selectSupperVoById(User user) {
-        SupperVo supperVo = new SupperVo();
-        int id = user.getUserid();
-        int idLength = (id + "").length();
-        if (idLength == 4) {
-            User teacher = selectTeacher(id);
-            supperVo.setUser(teacher);
 
-            List<Subject> subjects = selectTeachingClass(id);
-            supperVo.setSubjects(subjects);
-        }
-        if (idLength == 10) {
-            List<StudentCustom> studentCustoms = studentCustomMapper.selectStudentCustomByStudenId(id);
-            supperVo.setStudentCustom(studentCustoms.get(0));
-        }
-        return supperVo;
-    }
 
     @Override
     public List<String> inputGradeByEXCEL(File file, int userid) {
@@ -188,4 +171,24 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return null;
     }
+
+    @Override
+    public List<TeacherSelectGradVo> selectTeacherGrade(User user) {
+        List<TeacherSelectGradVo> teacherSelectGradVo = studentCustomMapper.selectTeacherGrade(user);
+        return teacherSelectGradVo;
+    }
+
+    @Override
+    public List<Integer> selectAllTeacherId() {
+
+        ArrayList<Integer> integers = new ArrayList<>();
+        UserExample userExample = new UserExample();
+        List<User> users = userMapper.selectByExample(userExample);
+        for (User user : users) {
+            integers.add(user.getUserid());
+        }
+        return integers;
+    }
+
+
 }
