@@ -8,6 +8,7 @@ import cn.edu.nuc.ssms.user.UesrType;
 import cn.edu.nuc.ssms.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -97,24 +98,40 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
-    public boolean deleteNotice(int notice) {
-        int i = noticeMapper.deleteByPrimaryKey(notice);
-        if (i > 0) {
-            return true;
+    public boolean deleteNotice(Notice[] notices) {
+        for (Notice notice : notices) {
+          noticeMapper.deleteByPrimaryKey(notice.getNoticeid());
         }
-        return false;
+        return true;
     }
 
     @Override
     public boolean updateNotice(Notice notice) {
         if (notice != null && notice.getNoticeid() != 0) {
-        int i = noticeMapper.updateByPrimaryKeySelective(notice);
+            Notice oldNotice = noticeMapper.selectByPrimaryKey(notice.getNoticeid());
+            if (Utils.isEmpty(notice.getMessage())) {
+                notice.setMessage(oldNotice.getMessage());
+            }
+            if (Utils.isEmpty(notice.getTitle())) {
+                notice.setTitle(notice.getTitle());
+            }
+            notice.setAddtime(new Date());
+
+            int i = noticeMapper.updateByPrimaryKeySelective(notice);
             if (i > 0) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    @Override
+    public List<Notice> selectAllNotices() {
+        NoticeExample noticeExample = new NoticeExample();
+        List<Notice> notices = noticeMapper.selectByExample(noticeExample);
+
+        return notices;
     }
 
     @Override

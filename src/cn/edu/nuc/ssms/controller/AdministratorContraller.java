@@ -143,12 +143,13 @@ public class AdministratorContraller {
      */
     @RequestMapping("/deleteNotice")
     @ResponseBody
-    public String deleteNotice(@RequestBody Notice notice) {
+    public String deleteNotice(@RequestBody Notice[] notice) {
         log.debug("删除公告");
-        if (administratorService.deleteNotice(notice.getNoticeid())) {
-            return "{\"code\": \"0\"}";
-        }
-        return "{\"code\": \"1\"}";
+            if (administratorService.deleteNotice(notice)) {
+                return "{\"code\": \"0\"}";
+            }
+            return "{\"code\": \"1\"}";
+
     }
 
     /**
@@ -164,6 +165,18 @@ public class AdministratorContraller {
             return "{\"code\": \"0\"}";
         }
         return "{\"code\": \"1\"}";
+    }
+
+    /**
+     * 管理员查询所有公告
+     * @return
+     */
+    @RequestMapping("/selectAllNotices")
+    @ResponseBody
+    public List<Notice> selectAllNotices() {
+        log.debug("管理员查询所有公告");
+        List<Notice> notices = administratorService.selectAllNotices();
+        return notices;
     }
 
     /**

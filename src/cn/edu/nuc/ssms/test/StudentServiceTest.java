@@ -37,11 +37,6 @@ public class StudentServiceTest {
     }
 
     @Test
-    public void testSelectNodice() {
-        List<Notice> notices = studentService.selectNodice(1, 2);
-        System.out.println(notices);
-    }
-    @Test
     public void testSelectStudentCustomByClass() {
         StudentCustom studentCustom = new StudentCustom();
         studentCustom.setClassname("1234");
@@ -82,7 +77,7 @@ public class StudentServiceTest {
     }
     @Test
     public void testSelectAllStudentId(){
-        List<Integer> integers = studentService.selectAllStudentId();
+        List<String> integers = studentService.selectAllStudentId();
         System.out.println(integers);
     }
     @Test

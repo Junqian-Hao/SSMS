@@ -11,6 +11,8 @@ public class Notice {
 
     private Date addtime;
 
+    private Integer code;
+
     public Integer getNoticeid() {
         return noticeid;
     }
@@ -41,5 +43,13 @@ public class Notice {
 
     public void setAddtime(Date addtime) {
         this.addtime = addtime;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
     }
 }

@@ -61,7 +61,7 @@ public interface AdministratorService {
      * @param notice 被删除的公告编号
      * @return 删除结果
      */
-    boolean deleteNotice(int notice);
+    boolean deleteNotice(Notice[] notice);
 
     /**
      * 修改公告
@@ -69,6 +69,12 @@ public interface AdministratorService {
      * @return 修改的结果
      */
     boolean updateNotice(Notice notice);
+
+    /**
+     * 查询所有公告,包括不参加滚动的
+     * @return
+     */
+    List<Notice> selectAllNotices();
 
     /**
      * 添加科目

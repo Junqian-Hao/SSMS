@@ -48,23 +48,6 @@ public class StudentController {
         return notices;
     }
 
-    /**
-     * 分页查询公告
-     *
-     * @param map
-     * @return
-     */
-    @RequestMapping("/selectNotice")
-    @ResponseBody
-    public List<Notice> selectNotice(@RequestBody Map<String, Integer> map) {
-        log.debug("分页查询公告");
-        int pageSize = 20;
-        if (map.containsKey("pageSize")) {
-            pageSize = map.get("pageSize");
-        }
-        List<Notice> notices = studentService.selectNodice(map.get("startRow"), pageSize);
-        return notices;
-    }
 
     /**
      * 查询当前登陆的学生
@@ -198,7 +181,7 @@ public class StudentController {
      */
     @RequestMapping("/selectAllStudentId")
     @ResponseBody
-    public List<Integer> selectAllStudentId() {
+    public List<String> selectAllStudentId() {
         log.debug("查询所有学生id");
         return studentService.selectAllStudentId();
     }

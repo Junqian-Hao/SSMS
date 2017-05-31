@@ -35,18 +35,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     TeacherService teacherService;
+
     @Override
     public List<Notice> selectAllNodice() {
         NoticeExample noticeExample = new NoticeExample();
-        List<Notice> notices = noticeMapper.selectByExample(noticeExample);
-        return notices;
-    }
-
-    @Override
-    public List<Notice> selectNodice(int startRow, int pageSize) {
-        NoticeExample noticeExample = new NoticeExample();
-        noticeExample.setStartRow((startRow-1)*pageSize);
-        noticeExample.setPageSize(pageSize);
+        NoticeExample.Criteria criteria = noticeExample.createCriteria();
+        criteria.andCodeEqualTo(0);
         List<Notice> notices = noticeMapper.selectByExample(noticeExample);
         return notices;
     }
@@ -118,7 +112,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Map<String,Object>> analyseByClass(AnalyseVo analyseVo) {
+    public List<Map<String, Object>> analyseByClass(AnalyseVo analyseVo) {
         List<Map<String, Object>> resultList = new ArrayList<>();
 
         StudentCustom studentCustom = new StudentCustom();
@@ -145,8 +139,7 @@ public class StudentServiceImpl implements StudentService {
             for (float grad : floats) {
                 if (grad > 90) {
                     perfectAmount++;
-                }
-                else if (grad > 80) {
+                } else if (grad > 80) {
                     goodAmount++;
                 } else if (grad > 60) {
                     passAmount++;
@@ -156,31 +149,30 @@ public class StudentServiceImpl implements StudentService {
             }
 
             //计算比率
-
-            perfectPerentge = (float) perfectAmount/person;
-            goodPerentge = (float) goodAmount / person;
-            passPerentge = (float) passAmount / person;
-            dispassPerentge = (float) dispassAmount / person;
+            perfectPerentge = (float) (Math.round(perfectAmount / person * 100 * 100) / 100.0);
+            goodPerentge = (float) (Math.round(goodAmount / person * 100 * 100) / 100.0);
+            passPerentge = (float) (Math.round(passAmount / person * 100 * 100) / 100.0);
+            dispassPerentge = (float) (Math.round(dispassAmount / person * 100 * 100) / 100.0);
 
             HashMap<String, Object> subjectGrad = new HashMap<>();
             subjectGrad.put("perfectAmount", (float) perfectAmount);
-            subjectGrad.put("perfectPerentge",perfectPerentge);
+            subjectGrad.put("perfectPerentge", perfectPerentge);
             subjectGrad.put("goodAmount", (float) goodAmount);
-            subjectGrad.put("goodPerentge",goodPerentge);
+            subjectGrad.put("goodPerentge", goodPerentge);
             subjectGrad.put("passAmount", (float) passAmount);
-            subjectGrad.put("passPerentge",passPerentge);
+            subjectGrad.put("passPerentge", passPerentge);
             subjectGrad.put("dispassAmount", (float) dispassAmount);
-            subjectGrad.put("dispassPerentge",dispassPerentge);
+            subjectGrad.put("dispassPerentge", dispassPerentge);
             subjectGrad.put("subject", subject);
 
-            resultList.add( subjectGrad);
+            resultList.add(subjectGrad);
 
         }
         return resultList;
     }
 
     @Override
-    public List<Map<String,Object>> analyseByCollage(AnalyseVo analyseVo) {
+    public List<Map<String, Object>> analyseByCollage(AnalyseVo analyseVo) {
 
         List<Map<String, Object>> resultList = new ArrayList<>();
 
@@ -195,7 +187,7 @@ public class StudentServiceImpl implements StudentService {
             int goodAmount = 0;
             int perfectAmount = 0;
 
-                float passPerentge = 0;
+            float passPerentge = 0;
             float dispassPerentge = 0;
             float goodPerentge = 0;
             float perfectPerentge = 0;
@@ -205,8 +197,7 @@ public class StudentServiceImpl implements StudentService {
             for (float grad : floats) {
                 if (grad > 90) {
                     perfectAmount++;
-                }
-                else if (grad > 80) {
+                } else if (grad > 80) {
                     goodAmount++;
                 } else if (grad > 60) {
                     passAmount++;
@@ -217,20 +208,20 @@ public class StudentServiceImpl implements StudentService {
 
             //计算比率
 
-            perfectPerentge = (float) perfectAmount/person;
-            goodPerentge = (float) goodAmount / person;
-            passPerentge = (float) passAmount / person;
-            dispassPerentge = (float) dispassAmount / person;
+            perfectPerentge = (float) (Math.round(perfectAmount / person* 100 * 100) / 100.0);
+            goodPerentge = (float) (Math.round(goodAmount / person* 100 * 100) / 100.0);
+            passPerentge = (float) (Math.round(passAmount / person* 100 * 100) / 100.0);
+            dispassPerentge = (float) (Math.round(dispassAmount / person* 100 * 100) / 100.0);
 
             HashMap<String, Object> subjectGrad = new HashMap<>();
             subjectGrad.put("perfectAmount", (float) perfectAmount);
-            subjectGrad.put("perfectPerentge",perfectPerentge);
+            subjectGrad.put("perfectPerentge", perfectPerentge);
             subjectGrad.put("goodAmount", (float) goodAmount);
-            subjectGrad.put("goodPerentge",goodPerentge);
+            subjectGrad.put("goodPerentge", goodPerentge);
             subjectGrad.put("passAmount", (float) passAmount);
-            subjectGrad.put("passPerentge",passPerentge);
+            subjectGrad.put("passPerentge", passPerentge);
             subjectGrad.put("dispassAmount", (float) dispassAmount);
-            subjectGrad.put("dispassPerentge",dispassPerentge);
+            subjectGrad.put("dispassPerentge", dispassPerentge);
 
             subjectGrad.put("subject", subject);
 
@@ -261,12 +252,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Integer> selectAllStudentId() {
-        ArrayList<Integer> integers = new ArrayList<>();
+    public List<String> selectAllStudentId() {
+        ArrayList<String> integers = new ArrayList<>();
         StudentExample studentExample = new StudentExample();
         List<Student> students = studentMapper.selectByExample(studentExample);
         for (Student student : students) {
-            integers.add(student.getUserid());
+            integers.add(String.valueOf(student.getUserid()));
         }
         return integers;
     }

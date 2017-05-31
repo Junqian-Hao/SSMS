@@ -179,13 +179,13 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Integer> selectAllTeacherId() {
+    public List<String> selectAllTeacherId() {
 
-        ArrayList<Integer> integers = new ArrayList<>();
+        ArrayList<String> integers = new ArrayList<>();
         UserExample userExample = new UserExample();
         List<User> users = userMapper.selectByExample(userExample);
         for (User user : users) {
-            integers.add(user.getUserid());
+            integers.add(String.valueOf(user.getUserid()));
         }
         return integers;
     }

@@ -187,7 +187,7 @@ public class TeacherController {
      */
     @RequestMapping("/selectAllTeacherId")
     @ResponseBody
-    public List<Integer> selectAllTeacherId() {
+    public List<String> selectAllTeacherId() {
         log.debug("查询所有教师id");
         return teacherService.selectAllTeacherId();
     }

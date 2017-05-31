@@ -72,5 +72,5 @@ public interface TeacherService {
      *模糊查询教师id
      * @return
      */
-    List<Integer> selectAllTeacherId();
+    List<String> selectAllTeacherId();
 }

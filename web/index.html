@@ -9,6 +9,7 @@
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
 	<script src="js/echarts.min.js"></script>
+	<script src="js/animate.js"></script>
     <title></title>
 </head>
 <body>
@@ -16,6 +17,7 @@
 		<div class="header">
 			<ul class="header_fun">
 				<li id="announcement"><a href="#">公告管理</a></li>
+				<li id="teacher_history"><a href="#">教学历史</a></li>
 				<li id="admin_query"><a href="#">信息管理</a></li>
 				<li id="admin_manage"><a href="#">教学管理</a></li>
 				<li id="grade_analysis"><a href="#">成绩分析</a></li>
@@ -23,12 +25,18 @@
 				<li id="my_infor"><a href="#">个人信息</a></li>
 			</ul>
 		</div>
-		<div>
-			<span class="notice">公告</span>
+		<div id="notice">
+
 		</div>
+		<!-- 左侧栏 -->
 		<div class="left_side">
 			<ul class="admin_announcement item_">
 				<li id="release_announcement" class="item"><a href="#">发布公告</a></li>
+				<li id="modify_announcement" class="item"><a href="#">修改公告</a></li>
+			</ul>
+			<ul class="left_teacher_history item_">
+				<li id="my_teacher" class="item"><a href="#">我的教学</a></li>
+				<li id="query_teacher" class="item"><a href="#">教学查询</a></li>
 			</ul>
 			<ul class="left_side_infor item_">
 				<li id="watch_infor" class="item"><a href="#">查看信息</a></li>
@@ -54,6 +62,29 @@
 					<label class="two_label">请输入公告内容</label>
 					<input class="two_label_input" id="announcement_content" maxlength="30">
 					<button id="submit_announcement">提交</button>
+				</div>
+			</div>
+			<!-- 删除公告 -->
+			<div class="modify_notice item_">
+				<div class="modify_notice_box">
+
+				</div>
+			</div>
+			<!-- 我的教学 -->
+			<div class="teacher_manage item_">
+				<div id="zhe_pic">
+
+				</div>
+			</div>
+			<!-- 教学查询 -->
+			<div class="query_teacher item_">
+				<div class="sb_hjq">
+					<label for="teacher_id" class="two_label">请输入id</label>
+					<input class="two_label_input" id="teacher_id" type="text">
+					<button id="teacher_id_btn">确定</button>
+				</div>
+				<div id="zhe_pic_2">
+
 				</div>
 			</div>
 			<!-- 老师信息 -->
@@ -199,6 +230,7 @@
 			</div>
 			<!-- 我的成绩 -->
 			<div class="my_grade item_">
+
 			</div>
 			<!-- 信息查询  信息修改-->
 			<div class="infor_query item_">

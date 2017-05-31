@@ -5,31 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 public class NoticeExample {
-    /**
-     * 起始索引
-     */
-    Integer startRow;
-    /**
-     * 页面容量
-     */
-    Integer pageSize;
-
-    public Integer getStartRow() {
-        return startRow;
-    }
-
-    public void setStartRow(Integer startRow) {
-        this.startRow = startRow;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
     protected String orderByClause;
 
     protected boolean distinct;
@@ -387,6 +362,66 @@ public class NoticeExample {
 
         public Criteria andAddtimeNotBetween(Date value1, Date value2) {
             addCriterion("addtime not between", value1, value2, "addtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeIsNull() {
+            addCriterion("code is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeIsNotNull() {
+            addCriterion("code is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeEqualTo(Integer value) {
+            addCriterion("code =", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotEqualTo(Integer value) {
+            addCriterion("code <>", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeGreaterThan(Integer value) {
+            addCriterion("code >", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("code >=", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeLessThan(Integer value) {
+            addCriterion("code <", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeLessThanOrEqualTo(Integer value) {
+            addCriterion("code <=", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeIn(List<Integer> values) {
+            addCriterion("code in", values, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotIn(List<Integer> values) {
+            addCriterion("code not in", values, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeBetween(Integer value1, Integer value2) {
+            addCriterion("code between", value1, value2, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotBetween(Integer value1, Integer value2) {
+            addCriterion("code not between", value1, value2, "code");
             return (Criteria) this;
         }
     }

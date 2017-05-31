@@ -12,6 +12,11 @@
 	opacity: 0.9;
 }
 
+#notice{
+	height: 28px;
+	overflow: hidden;
+}
+
 .header .header_fun{
     margin-left: 35%;
     position: absolute;
@@ -28,7 +33,7 @@
     background: rgb(239,238,243);
 	color: #29323a;;
     height: 25px;
-    line-height: 25px;
+    line-height: 26px;
 	border-bottom: 1px solid #efeef3;
     display: block;
 }
@@ -45,7 +50,8 @@
 .left_side_manage,
 .left_side_query,
 .admin_announcement,
-.left_grade_analysis{
+.left_grade_analysis,
+.left_teacher_history{
     position: absolute;
     width: 100%;
     margin-left: -18%;
@@ -158,6 +164,11 @@
 .search_class,
 .search_infor{
 	margin-left: -30px;
+}
+
+.sb_hjq{
+	text-align: center;
+	margin-top: 20px;
 }
 
 .search_infor{
@@ -314,4 +325,19 @@
 
 .class_grade{
 	margin: 20px auto;
+}
+
+#zhe_pic,
+#zhe_pic_2{
+	width: 600px;
+	height: 400px;
+	margin-left: 120px;
+}
+
+.query_teacher{
+	display: none;
+}
+
+#announcement{
+	display: block;
 }

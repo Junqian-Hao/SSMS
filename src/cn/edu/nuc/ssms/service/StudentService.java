@@ -25,14 +25,6 @@ public interface StudentService {
      */
     List<Notice> selectAllNodice();
 
-    /**
-     * 分页查询公告
-     *
-     * @param startRow 起始索引
-     * @param pageSize 页面容量
-     * @return
-     */
-    List<Notice> selectNodice(int startRow, int pageSize);
 
     /**
      * 查询当前用户信息
@@ -100,7 +92,7 @@ public interface StudentService {
      *模糊查询学生号
      * @return
      */
-    List<Integer> selectAllStudentId();
+    List<String> selectAllStudentId();
 
     /**
      * 查询所有班级

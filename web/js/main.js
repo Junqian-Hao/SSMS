@@ -16,14 +16,18 @@ $(function(){
 				$("#announcement").css("display","none");
 				$("#admin_query").css("display","none");
 				$("#admin_manage").css("display","none");
+				$("#teacher_history").css("display","none");
 				$("#grade_analysis").css("display","none");
 			}else if(data.type == 1){
 				$("#announcement").css("display","none");
 				$("#modify_grade").css("display","none");
 				$("#my_grade").css("display","none");
+				$("#query_teacher").css("display","none");
+				$(".header_fun").css("margin_left","40%");
 			}else if(data.type == 0){
 				$("#my_grade").css("display","none");
-				$(".header_fun").css("margin_left","50%");
+				$("#my_teacher").css("display","none");
+				$(".header_fun").css("margin_left","40%");
 			}
 		},
 		error: function(xhr,text){
@@ -37,9 +41,75 @@ $(function(){
 		contentType: "application/json",
 		success: function(data){
 			var len = data.length;
-			$(".notice").text(data[len-1].message);
+			for(var i = 0;i<len;i++){
+				var span = $("<span class='notice'></span>").text(data[i].message);
+				$("#notice").append(span);
+			}
+			var span1 = $("<span class='notice'></span>").text(data[0].message);
+			var span2 = $("<span class='notice'></span>").text(data[1].message);
+			$("#notice").append(span1,span2);
+			if(len == 1){
+
+			}else{
+				animate(26,50,500,"notice",len);
+			}
 		}
 	});
+
+	//删除公告
+	$("#modify_announcement").on("click",function(){
+		$(".item_").css("display","none");
+		$(".admin_announcement").css("display","block");
+		$(".modify_notice").css("display","block");
+		$.ajax({
+			url: "/ssms/Student/selectAllNotice.action",
+			type: "POST",
+			dataType: "json",
+			contentType: "application/json",
+			success: function(data){
+				var len = data.length;
+				for(var i = 0;i<len;i++){
+					_data[i] = data[i].noticeid;
+					var input = $("<input class='modify_notice_input' type='checkbox' name='notice'>").attr("value",data[i].message);
+					var br = $("<br></<br>");
+					$(".modify_notice_box").append(input,data[i].message,br);
+				}
+				var btn = $("<button id='modify_notice'></button>").text("删除");
+				$(".modify_notice_box").append(btn);
+				$("#modify_notice").on("click",function(){
+					var len = $(".modify_notice_input").length;
+					var json = [];
+					var index = 0;
+					for(var j = 0;j<len;j++){
+						var input = $(".modify_notice_input")[j];
+						console.log($(input).is(":checked"));
+						if($(input).is(":checked")){
+							json[index] = {
+								"noticeid":_data[j]
+							};
+							index++;
+						}
+					}
+					console.log(json);
+					$.ajax({
+						url: "/ssms/Administrator/deleteNotice.action",
+						type: "POST",
+						dataType: "json",
+						contentType: "application/json",
+						data: JSON.stringify(json),
+						success: function(data){
+							if(data.code == 0){
+								alert("删除成功");
+							}else {
+								alert("删除失败");
+							}
+						}
+					});
+				});
+			}
+		});
+	});
+
 	setTimeout(function(){
 		type = $("body").attr("data-type");
 		userid = $("body").attr("data-id");
@@ -463,7 +533,7 @@ $(function(){
 			contentType: "application/json",
 			data: JSON.stringify(json),
 			success: function(data){
-				$(".notice").text(announcement);
+				alert("提交成功");
 			},
 			error: function(xhr,text){
 				console.log(text);
@@ -482,6 +552,24 @@ $(function(){
 		var value = $("#class_stu_id").val();
 		var choose = $(".choose").val();
 		if(choose == "班级"){
+			$(function(){
+				$.ajax({
+					url: "/ssms/Student/selectAllClassName.action",
+					type: "POST",
+					dataType: "json",
+					contentType: "application/json",
+					success: function(data){
+						var data = data;
+						$("#class_stu_id").autocomplete({
+							source: data,
+							minLength: 1
+						});
+					},
+					error: function(xhr,text){
+						console.log(text);
+					}
+				});
+			});
 			var json = {
 				"classname":value
 			}
@@ -520,6 +608,24 @@ $(function(){
 				}
 			});
 		}else{
+			$(function(){
+				$.ajax({
+					url: "/ssms/Student/selectAllStudentId.action",
+					type: "POST",
+					dataType: "json",
+					contentType: "application/json",
+					success: function(data){
+						var data = data;
+						$("#class_stu_id").autocomplete({
+							source: data,
+							minLength: 2
+						});
+					},
+					error: function(xhr,text){
+						console.log(text);
+					}
+				});
+			});
 			var value = $("#class_stu_id").val();
 			var choose = $(".choose").val();
 			var json = {
@@ -610,7 +716,6 @@ $(function(){
 				$(".modify_grade_table").css("visibility","visible");
 				$("#modify_grade_btn").on("click",function(){
 					var data = [];
-					console.log(_data[0].id);
 					for(var i = 0;i<subjectnum;i++){
 						var number = $(".grade_table_input2")[i];
 						var grade = $(number).val();
@@ -652,38 +757,59 @@ $(function(){
 		}
 		console.log(json);
 		$.ajax({
-			url: "/ssms/Student/selectSupperVoById.action",
+			url: "/ssms/Student/selectOneselfStudentGrad.action",
 			type: "POST",
 			dataType: "json",
 			contentType: "application/json",
 			data: JSON.stringify(json),
 			success: function(data){
-				console.log(data);
 				$(".my_grade").empty();
-				var table = $("<table class='my_table'></table>");
-				var firsttr = $("<tr></tr>");
-				var secondtr = $("<tr></tr>");
-				var tdid = $("<td></td>").html("学号");
-				var tdname = $("<td></td>").html("姓名");
-				var id = $("<td></td>").html(userid);
-				var name = $("<td></td>").html(data.studentCustom.name);
-				$(firsttr).append(tdid,tdname);
-				$(secondtr).append(id,name);
-				var subjectnum = data.studentCustom.gradeVos.length;
+				var zhu = $("<div id='my_grade_zhu'></div>");
+				var pie = $("<div id='my_grade_pie'></div>");
+				$(".my_grade").append(zhu,pie);
+				var charts1 = echarts.init(document.getElementById("my_grade_zhu"));
+				var subjectnum = data.gradeVos.length;
+				var data = [];
+				var grade = [];
+				var datapie = [];
 				for(var i = 0;i<subjectnum;i++){
-					var td = $("<td></td>").html(data.studentCustom.gradeVos[i].subject);
-					var grade = data.studentCustom.gradeVos[i].grade;
-					var secondtd = $("<td></td>").html(grade);
-					$(firsttr).append(td);
-					$(secondtr).append(secondtd);
+					data[i] = data[0].gradeVos[i].subject;
 				}
-				$(table).append(firsttr,secondtr);
-				$(".my_grade").append(table);
-				$(".my_table").css("visibility","visible");
-
-
-
-
+				for(var j = 0;j<subjectnum;j++){
+					grade[j] = data[0].gradeVos[j].grade;
+				}
+				//柱状图
+				var option = {
+					title: {
+						text: '柱状图'
+					},
+					tooltip: {},
+					legend: {
+						data:['比列']
+					},
+					xAxis: {
+						data: data
+					},
+					yAxis: {},
+					series: [{
+						name: '比列',
+						type: 'bar',
+						itemStyle: {
+							normal: {
+								color: function(params) {
+									var colorList = [
+										'#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+										'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+										'#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+									];
+									return colorList[params.dataIndex]
+								}
+							}
+						},
+						data: grade
+					}]
+				};
+				charts1.setOption(option);
 			},
 			error: function(xhr,text){
 				console.log(text);
@@ -898,7 +1024,6 @@ $(function(){
 	});
 	$("#college_analysis_btn").on("click", function () {
 		var college = $("#college_analysis_input").val();
-		console.log(college);
 		var json = {
 			"college":college
 		}
@@ -909,7 +1034,6 @@ $(function(){
 			contentType: "application/json",
 			data: JSON.stringify(json),
 			success: function(data){
-				console.log(data);
 				var select = $("<select id='choose_subject'></select>");
 				var num = data.length;
 				var firstpic = data[0].subject;
@@ -1113,6 +1237,7 @@ $(function(){
 	});
 
 	//模糊查询
+	//班级
 	$(function(){
 		$.ajax({
 			url: "/ssms/Student/selectAllClassName.action",
@@ -1123,7 +1248,75 @@ $(function(){
 				var data = data;
 				$("#search_input").autocomplete({
 					source: data,
-					minLength: 2
+					minLength: 1
+				});
+				$("#class_analysis_input").autocomplete({
+					source: data,
+					minLength: 1
+				});
+			},
+			error: function(xhr,text){
+				console.log(text);
+			}
+		});
+	});
+	//学院
+	$(function(){
+		$.ajax({
+			url: "/ssms/Student/selectAllCollage.action",
+			type: "POST",
+			dataType: "json",
+			contentType: "application/json",
+			success: function(data){
+				var data = data;
+				$("#college_analysis_input").autocomplete({
+					source: data
+				});
+			},
+			error: function(xhr,text){
+				console.log(text);
+			}
+		});
+	});
+	//学生id
+	$(function(){
+		$.ajax({
+			url: "/ssms/Student/selectAllStudentId.action",
+			type: "POST",
+			dataType: "json",
+			contentType: "application/json",
+			success: function(data){
+				var data = data;
+				$("#input_modify_grade").autocomplete({
+					source: data,
+					minLength: 4
+				});
+				$("#query_content").autocomplete({
+					source: data,
+					minLength: 4
+				});
+			},
+			error: function(xhr,text){
+				console.log(text);
+			}
+		});
+	});
+
+	//教师id
+	$(function(){
+		$.ajax({
+			url: "/ssms/Teacher/selectAllTeacherId.action",
+			type: "POST",
+			dataType: "json",
+			contentType: "application/json",
+			success: function(data){
+				var data = data;
+				$("#teacher_id").autocomplete({
+					source: data
+				});
+				$("#query_content").autocomplete({
+					source: data,
+					minLength: 4
 				});
 			},
 			error: function(xhr,text){
@@ -1133,6 +1326,242 @@ $(function(){
 	});
 
 
+
+
+	//教学历史
+	$("#teacher_history").on("click",function(){
+		$(".item_").css("display","none");
+		$(".left_teacher_history").css("display","block");
+	});
+	$("#my_teacher").on("click",function(){
+		var json = {
+			"userid": userid
+		}
+		$(".item_").css("display","none");
+		$(".left_teacher_history").css("display","block");
+		$(".teacher_manage").css("display","block");
+		$.ajax({
+			url: "/ssms/Teacher/selectTeacherGrade.action",
+			type: "POST",
+			dataType: "json",
+			contentType: "application/json",
+			data: JSON.stringify(json),
+			success: function(data){
+				console.log(data);
+				var termnum = data.length;
+				var time = [];
+				var grade = [];
+				var pass = [];
+				for(var i = 0;i<termnum;i++){
+					time[i] = "第"+i+"学期";
+				}
+				for(var j = 0;j<termnum;j++){
+					console.log(data[0].termVos[0].subjectGradVos[0].avageGrad);
+					grade[j] = data[0].termVos[0].subjectGradVos[0].avageGrad;
+				}
+				for(var k = 0;k<termnum;k++){
+					console.log(data[0].termVos[0].subjectGradVos[0].passPerentge);
+					pass[j] = (data[0].termVos[0].subjectGradVos[0].passPerentge)*100;
+				}
+				var myCharts = echarts.init(document.getElementById("zhe_pic"));
+				option = {
+					title: {
+						text: '教学历史'
+					},
+					tooltip: {
+						trigger: 'axis'
+					},
+					toolbox: {
+						show: true,
+						feature: {
+							dataZoom: {
+								yAxisIndex: 'none'
+							},
+							dataView: {readOnly: false},
+							magicType: {type: ['line', 'bar']},
+							restore: {},
+							saveAsImage: {}
+						}
+					},
+					xAxis:  {
+						type: 'category',
+						boundaryGap: false,
+						data: time
+					},
+					yAxis: {
+						type: 'value'
+					},
+					series: [
+						{
+							name:'平均成绩',
+							type:'line',
+							data:grade,
+							markPoint: {
+								data: [
+									{type: 'max', name: '最大值'},
+									{type: 'min', name: '最小值'}
+								]
+							},
+							markLine: {
+								data: [
+									{type: 'average', name: '平均值'}
+								]
+							}
+						},
+						{
+							name:'及格率',
+							type:'line',
+							data:pass,
+							markPoint: {
+								data: [
+									{name: '学期最低', value: -2, xAxis: 1, yAxis: -1.5}
+								]
+							},
+							markLine: {
+								data: [
+									{type: 'average', name: '平均值'},
+									[{
+										symbol: 'none',
+										x: '90%',
+										yAxis: 'max'
+									}, {
+										symbol: 'circle',
+										label: {
+											normal: {
+												position: 'start',
+												formatter: '最大值'
+											}
+										},
+										type: 'max',
+										name: '最高点'
+									}]
+								]
+							}
+						}
+					]
+				};
+				myCharts.setOption(option);
+			},
+			error: function(xhr,text){
+				console.log(text);
+			}
+		});
+	});
+
+	//查询教学
+	$("#query_teacher").on("click",function(){
+		$(".item_").css("display","none");
+		$(".left_teacher_history").css("display","block");
+		$(".query_teacher").css("display","block");
+	});
+	$("#teacher_id_btn").on("click",function(){
+		var value = $("#teacher_id").val();
+		var json = {
+			"userid":value
+		}
+		$.ajax({
+			url:"/ssms/Teacher/selectTeacherGrade.action",
+			type: "POST",
+			dataType: "json",
+			contentType: "application/json",
+			data: JSON.stringify(json),
+			success: function(data){
+				var termnum = data.length;
+				var time = [];
+				var grade = [];
+				var pass = [];
+				for(var i = 0;i<termnum;i++){
+					time[i] = "第"+i+"学期";
+				}
+				for(var j = 0;j<termnum;j++){
+					grade[j] = data[0].termVos[0].subjectGradVos[0].avageGrad;
+				}
+				for(var k = 0;k<termnum;k++){
+					pass[j] = (data[0].termVos[0].subjectGradVos[0].passPerentge)*100;
+				}
+				var myCharts = echarts.init(document.getElementById("zhe_pic_2"));
+				option = {
+					title: {
+						text: '教学历史'
+					},
+					tooltip: {
+						trigger: 'axis'
+					},
+					toolbox: {
+						show: true,
+						feature: {
+							dataZoom: {
+								yAxisIndex: 'none'
+							},
+							dataView: {readOnly: false},
+							magicType: {type: ['line', 'bar']},
+							restore: {},
+							saveAsImage: {}
+						}
+					},
+					xAxis:  {
+						type: 'category',
+						boundaryGap: false,
+						data: time
+					},
+					yAxis: {
+						type: 'value'
+					},
+					series: [
+						{
+							name:'平均成绩',
+							type:'line',
+							data:grade,
+							markPoint: {
+								data: [
+									{type: 'max', name: '最大值'},
+									{type: 'min', name: '最小值'}
+								]
+							},
+							markLine: {
+								data: [
+									{type: 'average', name: '平均值'}
+								]
+							}
+						},
+						{
+							name:'及格率',
+							type:'line',
+							data:pass,
+							markPoint: {
+								data: [
+									{name: '学期最低', value: -2, xAxis: 1, yAxis: -1.5}
+								]
+							},
+							markLine: {
+								data: [
+									{type: 'average', name: '平均值'},
+									[{
+										symbol: 'none',
+										x: '90%',
+										yAxis: 'max'
+									}, {
+										symbol: 'circle',
+										label: {
+											normal: {
+												position: 'start',
+												formatter: '最大值'
+											}
+										},
+										type: 'max',
+										name: '最高点'
+									}]
+								]
+							}
+						}
+					]
+				};
+				myCharts.setOption(option);
+			},
+		});
+	});
+
+	$("#announcement").css("display","block");
 
 })
 
