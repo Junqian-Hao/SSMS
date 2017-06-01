@@ -41,7 +41,7 @@ $(function(){
 					if(data.code == 0){
 						window.location = "index.html";
 					}else{
-
+						alert("密码错误");
 					}
 				},
 				error: function(xhr,text){

@@ -19,6 +19,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 王启良
@@ -250,9 +251,10 @@ public class AdministratorContraller {
 
     @RequestMapping("/insertGrads")
     @ResponseBody
-    public String insertGrads(@RequestBody List<Grade> grades) {
+    public String insertGrads(@RequestBody Map<String,String> map) {
+
         log.debug("添加所修课程");
-        if (administratorService.insertGrade(grades)) {
+        if (administratorService.classnameRileSubjectId(map.get("className"), Integer.parseInt(map.get("subjectId")))) {
             return "{\"code\": \"0\"}";
         }
         return "{\"code\": \"1\"}";

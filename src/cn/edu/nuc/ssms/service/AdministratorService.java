@@ -122,4 +122,12 @@ public interface AdministratorService {
      * @return
      */
     boolean deleatGrade(List<Grade> grades);
+
+    /**
+     * 关联班级与课程
+     * @param className
+     * @param subjectId
+     * @return
+     */
+    boolean classnameRileSubjectId(String className, int subjectId);
 }

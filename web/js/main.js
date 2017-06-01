@@ -27,6 +27,7 @@ $(function(){
 			}else if(data.type == 0){
 				$("#my_grade").css("display","none");
 				$("#my_teacher").css("display","none");
+				$("#record_grade").css("display","none");
 				$(".header_fun").css("margin_left","40%");
 			}
 		},
@@ -58,6 +59,7 @@ $(function(){
 
 	//删除公告
 	$("#modify_announcement").on("click",function(){
+		$(".modify_notice_box").empty();
 		$(".item_").css("display","none");
 		$(".admin_announcement").css("display","block");
 		$(".modify_notice").css("display","block");
@@ -70,8 +72,8 @@ $(function(){
 				var len = data.length;
 				for(var i = 0;i<len;i++){
 					_data[i] = data[i].noticeid;
-					var input = $("<input class='modify_notice_input' type='checkbox' name='notice'>").attr("value",data[i].message);
-					var br = $("<br></<br>");
+					var input = $("<input class='modify_notice_input' type='checkbox' name='notice'>");
+					var br = $("<br>");
 					$(".modify_notice_box").append(input,data[i].message,br);
 				}
 				var btn = $("<button id='modify_notice'></button>").text("删除");
@@ -90,7 +92,6 @@ $(function(){
 							index++;
 						}
 					}
-					console.log(json);
 					$.ajax({
 						url: "/ssms/Administrator/deleteNotice.action",
 						type: "POST",
@@ -100,6 +101,7 @@ $(function(){
 						success: function(data){
 							if(data.code == 0){
 								alert("删除成功");
+								$("#modify_announcement").trigger("click");
 							}else {
 								alert("删除失败");
 							}
@@ -463,7 +465,7 @@ $(function(){
 										contentType: "application/json",
 										data: JSON.stringify(json)
 									});
-								}else if(id.length == 10){
+								}else{
 									var html1 = $(".infor_query input")[1];
 									var html2 = $(".infor_query input")[2];
 									var html3 = $(".infor_query input")[3];
@@ -480,21 +482,27 @@ $(function(){
 									var phonenumber = $(html7).val();
 
 									var json = {
+										"userid":id,
 										"name": name,
 										"sex" : sex,
 										"phonenumber": phonenumber,
 										"calssname": classname,
 										"college": college,
-										"birthday": birthday,
+										"birthday": birthday+"-01",
 										"nativeplace": nativeplace
-									}
+									};
 									console.log(json);
 									$.ajax({
 										url: "/ssms/Student/updateStudent.action",
 										type: "POST",
 										dataType: "json",
 										contentType: "application/json",
-										data: JSON.stringify(json)
+										data: JSON.stringify(json),
+										success: function (data) {
+											if(data.code == 0){
+												alert("修改成功");
+											}
+										}
 									});
 
 								}
@@ -751,11 +759,9 @@ $(function(){
 	$("#my_grade").on("click",function(){
 		$(".item_").css("display","none");
 		$(".my_grade").css("display","block");
-		console.log(userid);
 		var json = {
 			"userid": userid
 		}
-		console.log(json);
 		$.ajax({
 			url: "/ssms/Student/selectOneselfStudentGrad.action",
 			type: "POST",
@@ -768,12 +774,12 @@ $(function(){
 				var pie = $("<div id='my_grade_pie'></div>");
 				$(".my_grade").append(zhu,pie);
 				var charts1 = echarts.init(document.getElementById("my_grade_zhu"));
-				var subjectnum = data.gradeVos.length;
-				var data = [];
+				var subjectnum = data[0].gradeVos.length;
+				var datas = [];
 				var grade = [];
 				var datapie = [];
 				for(var i = 0;i<subjectnum;i++){
-					data[i] = data[0].gradeVos[i].subject;
+					datas[i] = data[0].gradeVos[i].subject;
 				}
 				for(var j = 0;j<subjectnum;j++){
 					grade[j] = data[0].gradeVos[j].grade;
@@ -788,7 +794,7 @@ $(function(){
 						data:['比列']
 					},
 					xAxis: {
-						data: data
+						data: datas
 					},
 					yAxis: {},
 					series: [{
@@ -895,10 +901,10 @@ $(function(){
 							type: 'pie',
 							radius: '55%',
 							data:[
-								{value:data[0].dispassAmount, name:'不及格'+data[0].dispassPerentge},
-								{value:data[0].passAmount, name:'及格'+data[0].passPerentge},
-								{value:data[0].goodAmount, name:'良好'+data[0].goodPerentge},
-								{value:data[0].perfectAmount, name:'优秀'+data[0].perfectPerentge}
+								{value:data[0].dispassAmount, name:'不及格'+data[0].dispassPerentge.toString().substr(0,4)},
+								{value:data[0].passAmount, name:'及格'+data[0].passPerentge.toString().substr(0,4)},
+								{value:data[0].goodAmount, name:'良好'+data[0].goodPerentge.toString().substr(0,4)},
+								{value:data[0].perfectAmount, name:'优秀'+data[0].perfectPerentge.toString().substr(0,4)}
 							]
 						},
 					],
@@ -1023,6 +1029,9 @@ $(function(){
 		$(".collegegrade_analysis").css("display","block");
 	});
 	$("#college_analysis_btn").on("click", function () {
+		$(".select2").empty();
+		$("#college_grade_column").empty();
+		$("#college_grade_pie").empty();
 		var college = $("#college_analysis_input").val();
 		var json = {
 			"college":college
@@ -1051,7 +1060,7 @@ $(function(){
 					},
 					tooltip: {},
 					legend: {
-						data:['比列']
+						data:['比例']
 					},
 					xAxis: {
 						data: ["0~60","60~80","80~90","90~100"]
@@ -1091,10 +1100,10 @@ $(function(){
 							type: 'pie',
 							radius: '55%',
 							data:[
-								{value:data[0].dispassAmount, name:'不及格'+data[0].dispassPerentge},
-								{value:data[0].passAmount, name:'及格'+data[0].passPerentge},
-								{value:data[0].goodAmount, name:'良好'+data[0].goodPerentge},
-								{value:data[0].perfectAmount, name:'优秀'+data[0].perfectPerentge}
+								{value:data[0].dispassAmount, name:'不及格'+data[0].dispassPerentge.toString().substr(0,4)},
+								{value:data[0].passAmount, name:'及格'+data[0].passPerentge.toString().substr(0,4)},
+								{value:data[0].goodAmount, name:'良好'+data[0].goodPerentge.toString().substr(0,4)},
+								{value:data[0].perfectAmount, name:'优秀'+data[0].perfectPerentge.toString().substr(0,4)}
 							]
 						},
 					],
@@ -1170,10 +1179,10 @@ $(function(){
 										type: 'pie',
 										radius: '55%',
 										data:[
-											{value:data[j].dispassAmount, name:'不及格'+data[j].dispassPerentge},
-											{value:data[j].passAmount, name:'及格'+data[j].passPerentge},
-											{value:data[j].goodAmount, name:'良好'+data[j].goodPerentge},
-											{value:data[j].perfectAmount, name:'优秀'+data[j].perfectPerentge}
+											{value:data[j].dispassAmount, name:'不及格'+data[j].dispassPerentge.toString().substr(0,4)},
+											{value:data[j].passAmount, name:'及格'+data[j].passPerentge.toString().substr(0,4)},
+											{value:data[j].goodAmount, name:'良好'+data[j].goodPerentge.toString().substr(0,4)},
+											{value:data[j].perfectAmount, name:'优秀'+data[j].perfectPerentge.toString().substr(0,4)}
 										]
 									},
 								],
@@ -1214,6 +1223,7 @@ $(function(){
 	//excel表提交
 	$("#grade_submit_excel").on("click",function(){
 		var formData = new FormData(document.getElementById("form_submit"));
+		console.log(formData);
 		$.ajax({
 			url: "/ssms/Teacher/inputGradeByEXCEL.action",
 			type: "POST",
@@ -1223,7 +1233,6 @@ $(function(){
 			contentType: false,
 			processData: false,
 			success: function (data) {
-				console.log(data);
 				if(data.code == 0){
 					alert("提交成功");
 				}else{
@@ -1320,7 +1329,6 @@ $(function(){
 				});
 			},
 			error: function(xhr,text){
-				console.log(text);
 			}
 		});
 	});
@@ -1465,100 +1473,11 @@ $(function(){
 			dataType: "json",
 			contentType: "application/json",
 			data: JSON.stringify(json),
-			success: function(data){
-				var termnum = data.length;
-				var time = [];
-				var grade = [];
-				var pass = [];
-				for(var i = 0;i<termnum;i++){
-					time[i] = "第"+i+"学期";
-				}
-				for(var j = 0;j<termnum;j++){
-					grade[j] = data[0].termVos[0].subjectGradVos[0].avageGrad;
-				}
-				for(var k = 0;k<termnum;k++){
-					pass[j] = (data[0].termVos[0].subjectGradVos[0].passPerentge)*100;
-				}
-				var myCharts = echarts.init(document.getElementById("zhe_pic_2"));
-				option = {
-					title: {
-						text: '教学历史'
-					},
-					tooltip: {
-						trigger: 'axis'
-					},
-					toolbox: {
-						show: true,
-						feature: {
-							dataZoom: {
-								yAxisIndex: 'none'
-							},
-							dataView: {readOnly: false},
-							magicType: {type: ['line', 'bar']},
-							restore: {},
-							saveAsImage: {}
-						}
-					},
-					xAxis:  {
-						type: 'category',
-						boundaryGap: false,
-						data: time
-					},
-					yAxis: {
-						type: 'value'
-					},
-					series: [
-						{
-							name:'平均成绩',
-							type:'line',
-							data:grade,
-							markPoint: {
-								data: [
-									{type: 'max', name: '最大值'},
-									{type: 'min', name: '最小值'}
-								]
-							},
-							markLine: {
-								data: [
-									{type: 'average', name: '平均值'}
-								]
-							}
-						},
-						{
-							name:'及格率',
-							type:'line',
-							data:pass,
-							markPoint: {
-								data: [
-									{name: '学期最低', value: -2, xAxis: 1, yAxis: -1.5}
-								]
-							},
-							markLine: {
-								data: [
-									{type: 'average', name: '平均值'},
-									[{
-										symbol: 'none',
-										x: '90%',
-										yAxis: 'max'
-									}, {
-										symbol: 'circle',
-										label: {
-											normal: {
-												position: 'start',
-												formatter: '最大值'
-											}
-										},
-										type: 'max',
-										name: '最高点'
-									}]
-								]
-							}
-						}
-					]
-				};
-				myCharts.setOption(option);
-			},
-		});
+			success: function(data) {
+
+
+			}
+
 	});
 
 	$("#announcement").css("display","block");

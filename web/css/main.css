@@ -341,3 +341,16 @@
 #announcement{
 	display: block;
 }
+
+#my_grade_zhu{
+	width: 400px;
+	height: 300px;
+}
+
+.modify_notice_box{
+	text-align: center;
+}
+
+.modify_notice_input{
+	margin: 0 auto;
+}

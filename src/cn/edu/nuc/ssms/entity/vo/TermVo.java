@@ -8,15 +8,15 @@ import java.util.List;
  * @Description :
  */
 public class TermVo {
-    int termId;
+     String subjectName;
     List<SubjectGradVo> subjectGradVos;
 
-    public int getTermId() {
-        return termId;
+    public String getSubjectName() {
+        return subjectName;
     }
 
-    public void setTermId(int termId) {
-        this.termId = termId;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
     public List<SubjectGradVo> getSubjectGradVos() {

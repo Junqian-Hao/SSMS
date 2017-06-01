@@ -28,11 +28,13 @@ public class AdministratorServiceImpl implements AdministratorService {
     StudentCustomMapper studentCustomMapper;
     @Autowired
     GradeMapper gradeMapper;
+    @Autowired
+    StudentMapper studentMapper;
 
     @Override
     public User selectAdministrator(int user) {
-            User userMassage = userMapper.selectByPrimaryKey(user);
-            return userMassage;
+        User userMassage = userMapper.selectByPrimaryKey(user);
+        return userMassage;
 
     }
 
@@ -89,7 +91,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public boolean insertNotice(Notice notice) {
         if (notice != null) {
-        int i = noticeMapper.insertSelective(notice);
+            int i = noticeMapper.insertSelective(notice);
             if (i > 0) {
                 return true;
             }
@@ -100,7 +102,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public boolean deleteNotice(Notice[] notices) {
         for (Notice notice : notices) {
-          noticeMapper.deleteByPrimaryKey(notice.getNoticeid());
+            noticeMapper.deleteByPrimaryKey(notice.getNoticeid());
         }
         return true;
     }
@@ -177,7 +179,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public boolean insertGrade(List<Grade> grades) {
         try {
-            for (Grade grade :grades) {
+            for (Grade grade : grades) {
                 gradeMapper.insertSelective(grade);
             }
         } catch (Exception e) {
@@ -189,8 +191,30 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public boolean deleatGrade(List<Grade> grades) {
         try {
-            for (Grade grade :grades) {
+            for (Grade grade : grades) {
                 gradeMapper.deleteByPrimaryKey(grade.getGradeid());
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean classnameRileSubjectId(String className, int subjectId) {
+        try {
+
+
+            StudentExample studentExample = new StudentExample();
+            StudentExample.Criteria criteria = studentExample.createCriteria();
+            criteria.andClassnameEqualTo(className);
+            List<Student> students = studentMapper.selectByExample(studentExample);
+            Grade grade = new Grade();
+            for (Student student : students
+                    ) {
+                grade.setUserid(student.getUserid());
+                grade.setSubjectid(subjectId);
+                gradeMapper.insertSelective(grade);
             }
         } catch (Exception e) {
             return false;
